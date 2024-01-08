@@ -1,5 +1,9 @@
 import PropTypes from 'prop-types'
 
+function formatearNumero(numero) {
+  return new Intl.NumberFormat('es-CL').format(numero)
+}
+
 const CrearTablaResumen = (props) => {
   const { data } = props
 
@@ -51,7 +55,7 @@ const CrearTablaResumen = (props) => {
           acc[`Potencia-6`] = Math.max(acc[`Potencia-6`], parseFloat(potencia))
         }
       }
-
+      console.log('avv', acc)
       return acc
     },
     {
@@ -80,13 +84,13 @@ const CrearTablaResumen = (props) => {
   }
   return (
     <>
-      {Object.entries(resumen).map(([valor, cantidad]) => (
+      {/* {Object.entries(resumen).map(([valor, cantidad]) => (
         <p key={valor}>{`Valor: ${valor}, Cantidad: ${cantidad}`}</p>
-      ))}
+      ))} */}
 
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <caption className="text-xl mt-8">
+          <caption className="text-2xl m-8">
             Resumen del Intervalo de fechas por período
           </caption>
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -94,22 +98,40 @@ const CrearTablaResumen = (props) => {
               <th scope="col" className="px-6 py-3">
                 Concepto
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th
+                scope="col"
+                className="px-6 py-3 bg-[#ff0000] text-center text-white"
+              >
                 P1
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th
+                scope="col"
+                className="px-6 py-3 bg-[#ff9900] text-center text-black"
+              >
                 P2
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th
+                scope="col"
+                className="px-6 py-3 bg-[#ffff00] text-center text-black"
+              >
                 P3
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th
+                scope="col"
+                className="px-6 py-3 bg-[#003366]  text-center text-white"
+              >
                 P4
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th
+                scope="col"
+                className="px-6 py-3 bg-[#1f82ce] text-center text-white"
+              >
                 P5
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th
+                scope="col"
+                className="px-6 py-3 bg-[#04fb04] text-center text-black"
+              >
                 P6
               </th>
             </tr>
@@ -122,12 +144,24 @@ const CrearTablaResumen = (props) => {
               >
                 Activa
               </th>
-              <td className="px-6 py-4">${resumen['Activa-1']}</td>
-              <td className="px-6 py-4">${resumen['Activa-2']}</td>
-              <td className="px-6 py-4">${resumen['Activa-3']}</td>
-              <td className="px-6 py-4">${resumen['Activa-4']}</td>
-              <td className="px-6 py-4">${resumen['Activa-5']}</td>
-              <td className="px-6 py-4">${resumen['Activa-6']}</td>
+              <td className="px-6 py-4 bg-[#ff0000] text-center text-white">
+                {formatearNumero(resumen['Activa-1'])}
+              </td>
+              <td className="px-6 py-4 bg-[#ff9900] text-center text-black">
+                {formatearNumero(resumen['Activa-2'])}
+              </td>
+              <td className="px-6 py-4 bg-[#ffff00] text-center text-black">
+                {formatearNumero(resumen['Activa-3'])}
+              </td>
+              <td className="px-6 py-4 bg-[#003366]  text-center text-white">
+                {formatearNumero(resumen['Activa-4'])}
+              </td>
+              <td className="px-6 py-4 bg-[#1f82ce] text-center text-white">
+                {formatearNumero(resumen['Activa-5'])}
+              </td>
+              <td className="px-6 py-4 bg-[#04fb04] text-center text-black">
+                {formatearNumero(resumen['Activa-6'])}
+              </td>
             </tr>
             <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
               <th
@@ -136,12 +170,24 @@ const CrearTablaResumen = (props) => {
               >
                 Reactiva
               </th>
-              <td className="px-6 py-4">${resumen['Reactiva-1']}</td>
-              <td className="px-6 py-4">${resumen['Reactiva-2']}</td>
-              <td className="px-6 py-4">${resumen['Reactiva-3']}</td>
-              <td className="px-6 py-4">${resumen['Reactiva-4']}</td>
-              <td className="px-6 py-4">${resumen['Reactiva-5']}</td>
-              <td className="px-6 py-4">${resumen['Reactiva-6']}</td>
+              <td className="px-6 py-4 bg-[#ff0000] text-center text-white">
+                {formatearNumero(resumen['Reactiva-1'])}
+              </td>
+              <td className="px-6 py-4 bg-[#ff9900] text-center text-black">
+                {formatearNumero(resumen['Reactiva-2'])}
+              </td>
+              <td className="px-6 py-4 bg-[#ffff00] text-center text-black">
+                {formatearNumero(resumen['Reactiva-3'])}
+              </td>
+              <td className="px-6 py-4 bg-[#003366]  text-center text-white">
+                {formatearNumero(resumen['Reactiva-4'])}
+              </td>
+              <td className="px-6 py-4 bg-[#1f82ce] text-center text-white">
+                {formatearNumero(resumen['Reactiva-5'])}
+              </td>
+              <td className="px-6 py-4 bg-[#04fb04] text-center text-black">
+                {formatearNumero(resumen['Reactiva-6'])}
+              </td>
             </tr>
             <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
               <th
@@ -150,12 +196,24 @@ const CrearTablaResumen = (props) => {
               >
                 Potencia
               </th>
-              <td className="px-6 py-4">${resumen['Potencia-1']}</td>
-              <td className="px-6 py-4">${resumen['Potencia-2']}</td>
-              <td className="px-6 py-4">${resumen['Potencia-3']}</td>
-              <td className="px-6 py-4">${resumen['Potencia-4']}</td>
-              <td className="px-6 py-4">${resumen['Potencia-5']}</td>
-              <td className="px-6 py-4">${resumen['Potencia-6']}</td>
+              <td className="px-6 py-4 bg-[#ff0000] text-center text-white">
+                {resumen['Potencia-1']}
+              </td>
+              <td className="px-6 py-4 bg-[#ff9900] text-center text-black">
+                {resumen['Potencia-2']}
+              </td>
+              <td className="px-6 py-4 bg-[#ffff00] text-center text-black">
+                {resumen['Potencia-3']}
+              </td>
+              <td className="px-6 py-4 bg-[#003366]  text-center text-white">
+                {resumen['Potencia-4']}
+              </td>
+              <td className="px-6 py-4 bg-[#1f82ce] text-center text-white">
+                {resumen['Potencia-5']}
+              </td>
+              <td className="px-6 py-4 bg-[#04fb04] text-center text-black">
+                {resumen['Potencia-6']}
+              </td>
             </tr>
           </tbody>
         </table>
