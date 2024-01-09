@@ -23,36 +23,42 @@ const CrearTablaResumen = (props) => {
           acc[`Activa-1`] += activa
           acc[`Reactiva-1`] += reactiva
           acc[`Potencia-1`] = Math.max(acc[`Potencia-1`], parseFloat(potencia))
+          acc['Horas-1'] += 1
         }
 
         if (periodo === 'P2') {
           acc[`Activa-2`] += activa
           acc[`Reactiva-2`] += reactiva
           acc[`Potencia-2`] = Math.max(acc[`Potencia-2`], parseFloat(potencia))
+          acc['Horas-2'] += 1
         }
 
         if (periodo === 'P3') {
           acc[`Activa-3`] += activa
           acc[`Reactiva-3`] += reactiva
           acc[`Potencia-3`] = Math.max(acc[`Potencia-3`], parseFloat(potencia))
+          acc['Horas-3'] += 1
         }
 
         if (periodo === 'P4') {
           acc[`Activa-4`] += activa
           acc[`Reactiva-4`] += reactiva
           acc[`Potencia-4`] = Math.max(acc[`Potencia-4`], parseFloat(potencia))
+          acc['Horas-4'] += 1
         }
 
         if (periodo === 'P5') {
           acc[`Activa-5`] += activa
           acc[`Reactiva-5`] += reactiva
           acc[`Potencia-5`] = Math.max(acc[`Potencia-5`], parseFloat(potencia))
+          acc['Horas-5'] += 1
         }
 
         if (periodo === 'P6') {
           acc[`Activa-6`] += activa
           acc[`Reactiva-6`] += reactiva
           acc[`Potencia-6`] = Math.max(acc[`Potencia-6`], parseFloat(potencia))
+          acc['Horas-6'] += 1
         }
       }
       console.log('avv', acc)
@@ -77,6 +83,12 @@ const CrearTablaResumen = (props) => {
       'Potencia-4': 0,
       'Potencia-5': 0,
       'Potencia-6': 0,
+      'Horas-1': 0,
+      'Horas-2': 0,
+      'Horas-3': 0,
+      'Horas-4': 0,
+      'Horas-5': 0,
+      'Horas-6': 0,
     }
   )
   {
@@ -213,6 +225,32 @@ const CrearTablaResumen = (props) => {
               </td>
               <td className="px-6 py-4 bg-[#04fb04] text-center text-black">
                 {resumen['Potencia-6']}
+              </td>
+            </tr>
+            <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+              <th
+                scope="row"
+                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                Horas
+              </th>
+              <td className="px-6 py-4 bg-[#ff0000] text-center text-white">
+                {formatearNumero(resumen['Horas-1'])}
+              </td>
+              <td className="px-6 py-4 bg-[#ff9900] text-center text-black">
+                {formatearNumero(resumen['Horas-2'])}
+              </td>
+              <td className="px-6 py-4 bg-[#ffff00] text-center text-black">
+                {formatearNumero(resumen['Horas-3'])}
+              </td>
+              <td className="px-6 py-4 bg-[#003366]  text-center text-white">
+                {formatearNumero(resumen['Horas-4'])}
+              </td>
+              <td className="px-6 py-4 bg-[#1f82ce] text-center text-white">
+                {formatearNumero(resumen['Horas-5'])}
+              </td>
+              <td className="px-6 py-4 bg-[#04fb04] text-center text-black">
+                {formatearNumero(resumen['Horas-6'])}
               </td>
             </tr>
           </tbody>

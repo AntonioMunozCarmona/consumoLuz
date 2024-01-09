@@ -1,11 +1,22 @@
 import PropTypes from 'prop-types'
 
+function getWeekDay(date) {
+  let days = ['D', 'L', 'M', 'X', 'J', 'V', 'S']
+  const [day, month, year] = date.split('/')
+  date = new Date(year, month - 1, day)
+
+  return days[date.getDay()]
+}
+
 const CrearTabla = (props) => {
   const { data } = props
   return (
     <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100">
+          <caption className="text-2xl m-8 tex text-blue-500">
+            Energia Activa en el período
+          </caption>
           <thead className="text-xs text-white uppercase bg-blue-600 dark:text-white">
             <tr>
               <th scope="col" className="px-2 py-3">
@@ -93,9 +104,9 @@ const CrearTabla = (props) => {
               >
                 <th
                   scope="row"
-                  className="px-2 py-4 bg-blue-500 font-medium  whitespace-nowrap dark:text-blue-100"
+                  className="px-2 py-4 bg-blue-500 text-gray-100 font-medium  whitespace-nowrap dark:text-blue-100"
                 >
-                  {fila.date}
+                  {fila.date} - {getWeekDay(fila.date)}
                 </th>
                 <td
                   className="px-2 py-4"

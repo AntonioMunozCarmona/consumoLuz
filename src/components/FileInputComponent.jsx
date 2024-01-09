@@ -136,10 +136,10 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
           </select>
           {selectedCup && (
             <>
-              <label>Fecha de inicio:</label>
+              <label className="m-2">Fecha de inicio:</label>
               <input
                 type="date"
-                className="inputdata mb-2"
+                className="inputdata m-2"
                 min={minDate}
                 max={maxDate}
                 value={startDate || maxDate}
@@ -147,10 +147,10 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
               />
               {startDate && (
                 <>
-                  <label>Fecha final:</label>
+                  <label className="m-2 ml-5">Fecha final:</label>
                   <input
                     type="date"
-                    className="inputdata mb-2"
+                    className="inputdata m-2"
                     min={minDate}
                     max={maxDate}
                     value={endDate || maxDate}
