@@ -8,14 +8,41 @@ function getWeekDay(date) {
   return days[date.getDay()]
 }
 
-const CrearTabla = (props) => {
-  const { data } = props
+function crearCaption(campo) {
+  let caption = ''
+  if (campo === 'Activa') {
+    caption = 'Energia Activa en el período'
+  } else if (campo === 'Reactiva') {
+    caption = 'Energia Reactiva en el período'
+  } else if (campo === 'Potencia') {
+    caption = 'Potencia en el periodo'
+  }
+  return caption
+}
+
+function getCellValue(fila, fieldName) {
+  switch (fieldName) {
+    case 'Activa':
+      return fila.Activa
+    case 'Reactiva':
+      return fila.Reactiva
+    case 'Potencia':
+      return fila.Potencia
+    default:
+      return null
+  }
+}
+
+const CrearTabla = ({ data, campo }) => {
+  //const { data, campo } = props
+  let caption = crearCaption(campo)
+
   return (
     <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100">
-          <caption className="text-2xl m-8 tex text-blue-500">
-            Energia Activa en el período
+          <caption className="text-2xl m-8 text-center text-blue-500">
+            {caption}
           </caption>
           <thead className="text-xs text-white uppercase bg-blue-600 dark:text-white">
             <tr>
@@ -112,145 +139,145 @@ const CrearTabla = (props) => {
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._00.Color }}
                 >
-                  {fila._00.Activa}
+                  {getCellValue(fila._00, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._01.Color }}
                 >
-                  {fila._01.Activa}
+                  {getCellValue(fila._01, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._02.Color }}
                 >
-                  {fila._02.Activa}
+                  {getCellValue(fila._02, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._03.Color }}
                 >
-                  {fila._03.Activa}
+                  {getCellValue(fila._03, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._04.Color }}
                 >
-                  {fila._04.Activa}
+                  {getCellValue(fila._04, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._05.Color }}
                 >
-                  {fila._05.Activa}
+                  {getCellValue(fila._05, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._06.Color }}
                 >
-                  {fila._06.Activa}
+                  {getCellValue(fila._06, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._07.Color }}
                 >
-                  {fila._07.Activa}
+                  {getCellValue(fila._07, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._08.Color }}
                 >
-                  {fila._08.Activa}
+                  {getCellValue(fila._08, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._09.Color }}
                 >
-                  {fila._09.Activa}
+                  {getCellValue(fila._09, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._10.Color }}
                 >
-                  {fila._10.Activa}
+                  {getCellValue(fila._10, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._11.Color }}
                 >
-                  {fila._11.Activa}
+                  {getCellValue(fila._11, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._12.Color }}
                 >
-                  {fila._12.Activa}
+                  {getCellValue(fila._12, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._13.Color }}
                 >
-                  {fila._13.Activa}
+                  {getCellValue(fila._13, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._14.Color }}
                 >
-                  {fila._14.Activa}
+                  {getCellValue(fila._14, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._15.Color }}
                 >
-                  {fila._15.Activa}
+                  {getCellValue(fila._15, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._16.Color }}
                 >
-                  {fila._16.Activa}
+                  {getCellValue(fila._16, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._17.Color }}
                 >
-                  {fila._17.Activa}
+                  {getCellValue(fila._17, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._18.Color }}
                 >
-                  {fila._18.Activa}
+                  {getCellValue(fila._18, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._19.Color }}
                 >
-                  {fila._19.Activa}
+                  {getCellValue(fila._19, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._20.Color }}
                 >
-                  {fila._20.Activa}
+                  {getCellValue(fila._20, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._21.Color }}
                 >
-                  {fila._21.Activa}
+                  {getCellValue(fila._21, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._22.Color }}
                 >
-                  {fila._22.Activa}
+                  {getCellValue(fila._22, campo)}
                 </td>
                 <td
                   className="px-2 py-4"
                   style={{ backgroundColor: fila._23.Color }}
                 >
-                  {fila._23.Activa}
+                  {getCellValue(fila._23, campo)}
                 </td>
               </tr>
             ))}
@@ -271,5 +298,6 @@ const CrearTabla = (props) => {
 
 CrearTabla.propTypes = {
   data: PropTypes.array,
+  campo: PropTypes.string,
 }
 export default CrearTabla

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import CrearTabla from './CrearTabla'
 import CrearTablaResumen from './CrearTablaResumen'
+import CrearTablaResumenDia from './CrearTablaResumenDia'
 
 const TratarInfo = (props) => {
   const { data } = props
@@ -129,13 +130,14 @@ const TratarInfo = (props) => {
 
     return acc
   }, [])
-  console.log('Mis datos: ', misDatos)
+
   return (
     <div>
-      <CrearTabla data={misDatos} />
+      <CrearTabla data={misDatos} campo={'Activa'} />
+      <CrearTabla data={misDatos} campo={'Reactiva'} />
+      <CrearTabla data={misDatos} campo={'Potencia'} />
+      <CrearTablaResumenDia data={misDatos} />
       <CrearTablaResumen data={misDatos} />
-
-      {/* <pre>{JSON.stringify(misDatos, null, 2)}</pre> */}
     </div>
   )
 }

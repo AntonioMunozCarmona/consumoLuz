@@ -9,8 +9,6 @@ const CrearTablaResumen = (props) => {
 
   const resumen = data.reduce(
     (acc, obj) => {
-      console.log('Esta es la data: ', obj, ' las propiedades')
-      console.log('Estas son las propiedades: ', Object.keys(obj))
       for (let i = 0; i <= 23; i++) {
         const periodo = obj[`_${i.toString().padStart(2, '0')}`].Periodo
         const activa = parseInt(obj[`_${i.toString().padStart(2, '0')}`].Activa)
@@ -61,7 +59,7 @@ const CrearTablaResumen = (props) => {
           acc['Horas-6'] += 1
         }
       }
-      console.log('avv', acc)
+
       return acc
     },
     {
@@ -91,9 +89,7 @@ const CrearTablaResumen = (props) => {
       'Horas-6': 0,
     }
   )
-  {
-    console.log('Object', Object.entries(resumen))
-  }
+
   return (
     <>
       {/* {Object.entries(resumen).map(([valor, cantidad]) => (
