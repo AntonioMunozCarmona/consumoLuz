@@ -5,6 +5,7 @@ import CrearTablaResumenDia from './CrearTablaResumenDia'
 
 const TratarInfo = (props) => {
   const { data } = props
+  console.log('DATA', data)
   let color
   let misDatos = []
   let miDia = {}
@@ -37,77 +38,79 @@ const TratarInfo = (props) => {
       miDia.date = date
       miDia.hour = hour
     }
-    if (hour === '0:00') {
+
+    if (hour === '00') {
       miDia._00 = hourData
     }
-    if (hour === '1:00') {
+    if (hour === '01') {
       miDia._01 = hourData
     }
-    if (hour === '2:00') {
+    if (hour === '02') {
       miDia._02 = hourData
     }
-    if (hour === '3:00') {
+    if (hour === '03') {
       miDia._03 = hourData
     }
-    if (hour === '4:00') {
+    if (hour === '04') {
       miDia._04 = hourData
     }
-    if (hour === '5:00') {
+    if (hour === '05') {
       miDia._05 = hourData
     }
-    if (hour === '6:00') {
+    if (hour === '06') {
       miDia._06 = hourData
     }
-    if (hour === '7:00') {
+    if (hour === '07') {
       miDia._07 = hourData
     }
-    if (hour === '8:00') {
+    if (hour === '08') {
       miDia._08 = hourData
     }
-    if (hour === '9:00') {
+    if (hour === '09') {
       miDia._09 = hourData
     }
-    if (hour === '10:00') {
+    if (hour === '10') {
       miDia._10 = hourData
     }
-    if (hour === '11:00') {
+    if (hour === '11') {
       miDia._11 = hourData
     }
-    if (hour === '12:00') {
+    if (hour === '12') {
       miDia._12 = hourData
     }
-    if (hour === '13:00') {
+    if (hour === '13') {
       miDia._13 = hourData
     }
-    if (hour === '14:00') {
+    if (hour === '14') {
       miDia._14 = hourData
     }
-    if (hour === '15:00') {
+    if (hour === '15') {
       miDia._15 = hourData
     }
-    if (hour === '16:00') {
+    if (hour === '16') {
       miDia._16 = hourData
     }
-    if (hour === '17:00') {
+    if (hour === '17') {
       miDia._17 = hourData
     }
-    if (hour === '18:00') {
+    if (hour === '18') {
       miDia._18 = hourData
     }
-    if (hour === '19:00') {
+    if (hour === '19') {
       miDia._19 = hourData
     }
-    if (hour === '20:00') {
+    if (hour === '20') {
       miDia._20 = hourData
     }
-    if (hour === '21:00') {
+    if (hour === '21') {
       miDia._21 = hourData
     }
-    if (hour === '22:00') {
+    if (hour === '22') {
       miDia._22 = hourData
     }
-    if (hour === '23:00') {
+    if (hour === '23') {
       miDia._23 = hourData
+
       misDatos.push(miDia)
       miDia = {}
     }
@@ -127,7 +130,6 @@ const TratarInfo = (props) => {
     //     [hourString]: hourData,
     //   }
     // }
-
     return acc
   }, [])
 

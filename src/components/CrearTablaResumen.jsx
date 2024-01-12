@@ -15,47 +15,47 @@ const CrearTablaResumen = (props) => {
         const reactiva = parseInt(
           obj[`_${i.toString().padStart(2, '0')}`].Reactiva
         )
-        const potencia = obj[`_${i.toString().padStart(2, '0')}`].Potencia
+        // const potencia = obj[`_${i.toString().padStart(2, '0')}`].Potencia
 
         if (periodo === 'P1') {
           acc[`Activa-1`] += activa
           acc[`Reactiva-1`] += reactiva
-          acc[`Potencia-1`] = Math.max(acc[`Potencia-1`], parseFloat(potencia))
+          acc[`Potencia-1`] = Math.max(acc[`Potencia-1`], parseFloat(activa))
           acc['Horas-1'] += 1
         }
 
         if (periodo === 'P2') {
           acc[`Activa-2`] += activa
           acc[`Reactiva-2`] += reactiva
-          acc[`Potencia-2`] = Math.max(acc[`Potencia-2`], parseFloat(potencia))
+          acc[`Potencia-2`] = Math.max(acc[`Potencia-2`], parseFloat(activa))
           acc['Horas-2'] += 1
         }
 
         if (periodo === 'P3') {
           acc[`Activa-3`] += activa
           acc[`Reactiva-3`] += reactiva
-          acc[`Potencia-3`] = Math.max(acc[`Potencia-3`], parseFloat(potencia))
+          acc[`Potencia-3`] = Math.max(acc[`Potencia-3`], parseFloat(activa))
           acc['Horas-3'] += 1
         }
 
         if (periodo === 'P4') {
           acc[`Activa-4`] += activa
           acc[`Reactiva-4`] += reactiva
-          acc[`Potencia-4`] = Math.max(acc[`Potencia-4`], parseFloat(potencia))
+          acc[`Potencia-4`] = Math.max(acc[`Potencia-4`], parseFloat(activa))
           acc['Horas-4'] += 1
         }
 
         if (periodo === 'P5') {
           acc[`Activa-5`] += activa
           acc[`Reactiva-5`] += reactiva
-          acc[`Potencia-5`] = Math.max(acc[`Potencia-5`], parseFloat(potencia))
+          acc[`Potencia-5`] = Math.max(acc[`Potencia-5`], parseFloat(activa))
           acc['Horas-5'] += 1
         }
 
         if (periodo === 'P6') {
           acc[`Activa-6`] += activa
           acc[`Reactiva-6`] += reactiva
-          acc[`Potencia-6`] = Math.max(acc[`Potencia-6`], parseFloat(potencia))
+          acc[`Potencia-6`] = Math.max(acc[`Potencia-6`], parseFloat(activa))
           acc['Horas-6'] += 1
         }
       }

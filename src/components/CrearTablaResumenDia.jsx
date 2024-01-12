@@ -46,42 +46,42 @@ const CrearTablaResumenDia = (props) => {
       const reactiva = parseInt(
         obj[`_${i.toString().padStart(2, '0')}`].Reactiva
       )
-      const potencia = obj[`_${i.toString().padStart(2, '0')}`].Potencia
+      //const potencia = obj[`_${i.toString().padStart(2, '0')}`].Potencia
 
       if (periodo === 'P1') {
         acc[`Activa-1`] += activa
         acc[`Reactiva-1`] += reactiva
-        acc[`Potencia-1`] = Math.max(acc[`Potencia-1`], parseFloat(potencia))
+        acc[`Potencia-1`] = Math.max(acc[`Potencia-1`], parseFloat(activa))
       }
 
       if (periodo === 'P2') {
         acc[`Activa-2`] += activa
         acc[`Reactiva-2`] += reactiva
-        acc[`Potencia-2`] = Math.max(acc[`Potencia-2`], parseFloat(potencia))
+        acc[`Potencia-2`] = Math.max(acc[`Potencia-2`], parseFloat(activa))
       }
 
       if (periodo === 'P3') {
         acc[`Activa-3`] += activa
         acc[`Reactiva-3`] += reactiva
-        acc[`Potencia-3`] = Math.max(acc[`Potencia-3`], parseFloat(potencia))
+        acc[`Potencia-3`] = Math.max(acc[`Potencia-3`], parseFloat(activa))
       }
 
       if (periodo === 'P4') {
         acc[`Activa-4`] += activa
         acc[`Reactiva-4`] += reactiva
-        acc[`Potencia-4`] = Math.max(acc[`Potencia-4`], parseFloat(potencia))
+        acc[`Potencia-4`] = Math.max(acc[`Potencia-4`], parseFloat(activa))
       }
 
       if (periodo === 'P5') {
         acc[`Activa-5`] += activa
         acc[`Reactiva-5`] += reactiva
-        acc[`Potencia-5`] = Math.max(acc[`Potencia-5`], parseFloat(potencia))
+        acc[`Potencia-5`] = Math.max(acc[`Potencia-5`], parseFloat(activa))
       }
 
       if (periodo === 'P6') {
         acc[`Activa-6`] += activa
         acc[`Reactiva-6`] += reactiva
-        acc[`Potencia-6`] = Math.max(acc[`Potencia-6`], parseFloat(potencia))
+        acc[`Potencia-6`] = Math.max(acc[`Potencia-6`], parseFloat(activa))
       }
     }
 
@@ -95,114 +95,114 @@ const CrearTablaResumenDia = (props) => {
           <caption className="text-2xl m-8 text-center">Resumen diario</caption>
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-1 py-3">
                 Fecha
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#ff0000] text-center text-white"
+                className="px-1 py-3 bg-[#ff0000] text-center text-white"
               >
                 A-1
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#ff9900] text-center text-black"
+                className="px-1 py-3 bg-[#ff9900] text-center text-black"
               >
                 A-2
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#ffff00] text-center text-black"
+                className="px-1 py-3 bg-[#ffff00] text-center text-black"
               >
                 A-3
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#003366]  text-center text-white"
+                className="px-1 py-3 bg-[#003366]  text-center text-white"
               >
                 A-4
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#1f82ce] text-center text-white"
+                className="px-1 py-3 bg-[#1f82ce] text-center text-white"
               >
                 A-5
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#04fb04] text-center text-black"
+                className="px-1 py-3 bg-[#04fb04] text-center text-black"
               >
                 A-6
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#ff0000] text-center text-white"
+                className="px-1 py-3 bg-[#ff0000] text-center text-white"
               >
                 R-1
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#ff9900] text-center text-black"
+                className="px-1 py-3 bg-[#ff9900] text-center text-black"
               >
                 R-2
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#ffff00] text-center text-black"
+                className="px-1 py-3 bg-[#ffff00] text-center text-black"
               >
                 R-3
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#003366]  text-center text-white"
+                className="px-1 py-3 bg-[#003366]  text-center text-white"
               >
                 R-4
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#1f82ce] text-center text-white"
+                className="px-1 py-3 bg-[#1f82ce] text-center text-white"
               >
                 R-5
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#04fb04] text-center text-black"
+                className="px-1 py-3 bg-[#04fb04] text-center text-black"
               >
                 R-6
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#ff0000] text-center text-white"
+                className="px-1 py-3 bg-[#ff0000] text-center text-white"
               >
                 P-1
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#ff9900] text-center text-black"
+                className="px-1 py-3 bg-[#ff9900] text-center text-black"
               >
                 P-2
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#ffff00] text-center text-black"
+                className="px-1 py-3 bg-[#ffff00] text-center text-black"
               >
                 P-3
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#003366]  text-center text-white"
+                className="px-1 py-3 bg-[#003366]  text-center text-white"
               >
                 P-4
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#1f82ce] text-center text-white"
+                className="px-1 py-3 bg-[#1f82ce] text-center text-white"
               >
                 P-5
               </th>
               <th
                 scope="col"
-                className="px-4 py-3 bg-[#04fb04] text-center text-black"
+                className="px-1 py-3 bg-[#04fb04] text-center text-black"
               >
                 P-6
               </th>
@@ -216,62 +216,62 @@ const CrearTablaResumenDia = (props) => {
               >
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-1 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   {fila.date} - {getWeekDay(fila.date)}
                 </th>
-                <td className="px-6 py-4 bg-[#ff0000] text-center text-white">
+                <td className="px-1 py-3 bg-[#ff0000] text-center text-white">
                   {formatearNumero(fila['Activa-1'])}
                 </td>
-                <td className="px-6 py-4 bg-[#ff9900] text-center text-black">
+                <td className="px-1 py-3 bg-[#ff9900] text-center text-black">
                   {formatearNumero(fila['Activa-2'])}
                 </td>
-                <td className="px-6 py-4 bg-[#ffff00] text-center text-black">
+                <td className="px-1 py-3 bg-[#ffff00] text-center text-black">
                   {formatearNumero(fila['Activa-3'])}
                 </td>
-                <td className="px-6 py-4 bg-[#003366]  text-center text-white">
+                <td className="px-1 py-3 bg-[#003366]  text-center text-white">
                   {formatearNumero(fila['Activa-4'])}
                 </td>
-                <td className="px-6 py-4 bg-[#1f82ce] text-center text-white">
+                <td className="px-1 py-3 bg-[#1f82ce] text-center text-white">
                   {formatearNumero(fila['Activa-5'])}
                 </td>
-                <td className="px-6 py-4 bg-[#04fb04] text-center text-black">
+                <td className="px-1 py-3 bg-[#04fb04] text-center text-black">
                   {formatearNumero(fila['Activa-6'])}
                 </td>
-                <td className="px-6 py-4 bg-[#ff0000] text-center text-white">
+                <td className="px-1 py-3 bg-[#ff0000] text-center text-white">
                   {formatearNumero(fila['Reactiva-1'])}
                 </td>
-                <td className="px-6 py-4 bg-[#ff9900] text-center text-black">
+                <td className="px-1 py-3 bg-[#ff9900] text-center text-black">
                   {formatearNumero(fila['Reactiva-2'])}
                 </td>
-                <td className="px-6 py-4 bg-[#ffff00] text-center text-black">
+                <td className="px-1 py-3 bg-[#ffff00] text-center text-black">
                   {formatearNumero(fila['Reactiva-3'])}
                 </td>
-                <td className="px-6 py-4 bg-[#003366]  text-center text-white">
+                <td className="px-1 py-3 bg-[#003366]  text-center text-white">
                   {formatearNumero(fila['Reactiva-4'])}
                 </td>
-                <td className="px-6 py-4 bg-[#1f82ce] text-center text-white">
+                <td className="px-1 py-3 bg-[#1f82ce] text-center text-white">
                   {formatearNumero(fila['Reactiva-5'])}
                 </td>
-                <td className="px-6 py-4 bg-[#04fb04] text-center text-black">
+                <td className="px-1 py-3 bg-[#04fb04] text-center text-black">
                   {formatearNumero(fila['Reactiva-6'])}
                 </td>
-                <td className="px-6 py-4 bg-[#ff0000] text-center text-white">
+                <td className="px-1 py-3 bg-[#ff0000] text-center text-white">
                   {fila['Potencia-1']}
                 </td>
-                <td className="px-6 py-4 bg-[#ff9900] text-center text-black">
+                <td className="px-1 py-3 bg-[#ff9900] text-center text-black">
                   {fila['Potencia-2']}
                 </td>
-                <td className="px-6 py-4 bg-[#ffff00] text-center text-black">
+                <td className="px-1 py-3 bg-[#ffff00] text-center text-black">
                   {fila['Potencia-3']}
                 </td>
-                <td className="px-6 py-4 bg-[#003366]  text-center text-white">
+                <td className="px-1 py-3 bg-[#003366]  text-center text-white">
                   {fila['Potencia-4']}
                 </td>
-                <td className="px-6 py-4 bg-[#1f82ce] text-center text-white">
+                <td className="px-1 py-3 bg-[#1f82ce] text-center text-white">
                   {fila['Potencia-5']}
                 </td>
-                <td className="px-6 py-4 bg-[#04fb04] text-center text-black">
+                <td className="px-1 py-3 bg-[#04fb04] text-center text-black">
                   {fila['Potencia-6']}
                 </td>
               </tr>

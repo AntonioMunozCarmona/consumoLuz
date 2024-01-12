@@ -16,6 +16,13 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
       let lines = reader.result.split('\n').slice(1) // Omitir la primera línea
       lines = lines.filter((line) => line.trim() !== '') // Eliminar líneas vacías
       const options = lines.map((line) => line.replace(/\r/, '').split(';'))
+      // Dividir la fecha hora en dos campos
+      options.map((array) => {
+        const [fecha, tiempo] = array[1].split(' ')
+        const [hora] = tiempo.split(':')
+        array.splice(1, 1, fecha, hora)
+      })
+
       setFileContent(options)
     }
 
@@ -50,6 +57,7 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
 
   const getDateRange = () => {
     if (!fileContent || !selectedCup) return [null, null]
+
     const dates = fileContent
       .filter((arr) => {
         const [day, month, year] = arr[1].split('/')
@@ -60,8 +68,10 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
         const [day, month, year] = arr[1].split('/')
         return new Date(year, month - 1, day)
       })
+
     const minDate = new Date(Math.min.apply(null, dates))
     const maxDate = new Date(Math.max.apply(null, dates))
+
     return [
       minDate.toISOString().split('T')[0],
       maxDate.toISOString().split('T')[0],
@@ -75,12 +85,14 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
       const [startYear, startMonth, startDay] = startDate.split('-')
       const [endYear, endMonth, endDay] = endDate.split('-')
 
+      const startDateObj = new Date(
+        Date.UTC(startYear, startMonth - 1, startDay)
+      )
+      const endDateObj = new Date(Date.UTC(endYear, endMonth - 1, endDay))
+
       return fileContent.filter((arr) => {
         const [day, month, year] = arr[1].split('/')
-        const date = new Date(year, month - 1, day)
-
-        const startDateObj = new Date(startYear, startMonth - 1, startDay)
-        const endDateObj = new Date(endYear, endMonth - 1, endDay)
+        const date = new Date(Date.UTC(year, month - 1, day, 0, 0, 0, 0))
 
         return (
           arr[0] === selectedCup && date >= startDateObj && date <= endDateObj
@@ -91,7 +103,7 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
     if (startDate && endDate) {
       console.log(`Rango de fechas: ${startDate} - ${endDate}`)
       const filteredData = getFilteredData()
-      //console.log('Datos filtrados:', filteredData)
+
       onDatosRecibidos(filteredData)
     }
   }, [startDate, endDate, fileContent, selectedCup])
