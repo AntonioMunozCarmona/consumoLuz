@@ -20,6 +20,20 @@ function crearCaption(campo) {
   return caption
 }
 
+function round(num, decimales = 2) {
+  var signo = num >= 0 ? 1 : -1
+  num = num * signo
+  if (decimales === 0)
+    //con 0 decimales
+    return signo * Math.round(num)
+  // round(x * 10 ^ decimales)
+  num = num.toString().split('e')
+  num = Math.round(+(num[0] + 'e' + (num[1] ? +num[1] + decimales : decimales)))
+  // x * 10 ^ (-decimales)
+  num = num.toString().split('e')
+  return signo * (num[0] + 'e' + (num[1] ? +num[1] - decimales : -decimales))
+}
+
 function getCellValue(fila, fieldName) {
   switch (fieldName) {
     case 'Activa':
@@ -27,7 +41,7 @@ function getCellValue(fila, fieldName) {
     case 'Reactiva':
       return fila.Reactiva
     case 'Potencia':
-      return fila.Potencia
+      return round(fila.Potencia, 3)
     default:
       return null
   }
@@ -44,7 +58,7 @@ const CrearTabla = ({ data, campo }) => {
           <caption className="text-2xl m-8 text-center text-blue-500">
             {caption}
           </caption>
-          <thead className="text-xs text-white uppercase bg-blue-600 dark:text-white">
+          <thead className="text-xs text-white text-center uppercase bg-blue-600 dark:text-white">
             <tr>
               <th scope="col" className="px-1 py-3">
                 Fecha
@@ -127,7 +141,7 @@ const CrearTabla = ({ data, campo }) => {
             {data.map((fila) => (
               <tr
                 key={fila.date}
-                className=" border-b border-blue-400 text-gray-500"
+                className=" border-b border-blue-400 text-gray-500 text-center"
               >
                 <th
                   scope="row"
@@ -135,12 +149,6 @@ const CrearTabla = ({ data, campo }) => {
                 >
                   {fila.date} - {getWeekDay(fila.date)}
                 </th>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._00.Color }}
-                >
-                  {getCellValue(fila._00, campo)}
-                </td>
                 <td
                   className="px-1 py-3"
                   style={{ backgroundColor: fila._01.Color }}
@@ -279,13 +287,19 @@ const CrearTabla = ({ data, campo }) => {
                 >
                   {getCellValue(fila._23, campo)}
                 </td>
+                <td
+                  className="px-1 py-3"
+                  style={{ backgroundColor: fila._00.Color }}
+                >
+                  {getCellValue(fila._00, campo)}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
         <div className="mt-4 flex justify-evenly text-center">
           <span className="bg-[#ff0000] w-1/12 p-1 text-white">P1</span>
-          <span className="bg-[#ff9900] w-1/12 p-1">P2</span>
+          <span className="bg-[#e568ed] w-1/12 p-1">P2</span>
           <span className="bg-[#ffff00] w-1/12 p-1">P3</span>
           <span className="bg-[#003366] w-1/12 p-1 text-white">P4</span>
           <span className="bg-[#1f82ce] w-1/12 p-1 text-white">P5</span>

@@ -106,7 +106,7 @@ const CrearTablaResumenDia = (props) => {
               </th>
               <th
                 scope="col"
-                className="px-1 py-3 bg-[#ff9900] text-center text-black"
+                className="px-1 py-3 bg-[#e568ed] text-center text-black"
               >
                 A-2
               </th>
@@ -142,7 +142,7 @@ const CrearTablaResumenDia = (props) => {
               </th>
               <th
                 scope="col"
-                className="px-1 py-3 bg-[#ff9900] text-center text-black"
+                className="px-1 py-3 bg-[#e568ed] text-center text-black"
               >
                 R-2
               </th>
@@ -178,7 +178,7 @@ const CrearTablaResumenDia = (props) => {
               </th>
               <th
                 scope="col"
-                className="px-1 py-3 bg-[#ff9900] text-center text-black"
+                className="px-1 py-3 bg-[#e568ed] text-center text-black"
               >
                 P-2
               </th>
@@ -223,7 +223,7 @@ const CrearTablaResumenDia = (props) => {
                 <td className="px-1 py-3 bg-[#ff0000] text-center text-white">
                   {formatearNumero(fila['Activa-1'])}
                 </td>
-                <td className="px-1 py-3 bg-[#ff9900] text-center text-black">
+                <td className="px-1 py-3 bg-[#e568ed] text-center text-black">
                   {formatearNumero(fila['Activa-2'])}
                 </td>
                 <td className="px-1 py-3 bg-[#ffff00] text-center text-black">
@@ -241,7 +241,7 @@ const CrearTablaResumenDia = (props) => {
                 <td className="px-1 py-3 bg-[#ff0000] text-center text-white">
                   {formatearNumero(fila['Reactiva-1'])}
                 </td>
-                <td className="px-1 py-3 bg-[#ff9900] text-center text-black">
+                <td className="px-1 py-3 bg-[#e568ed] text-center text-black">
                   {formatearNumero(fila['Reactiva-2'])}
                 </td>
                 <td className="px-1 py-3 bg-[#ffff00] text-center text-black">
@@ -259,7 +259,7 @@ const CrearTablaResumenDia = (props) => {
                 <td className="px-1 py-3 bg-[#ff0000] text-center text-white">
                   {fila['Potencia-1']}
                 </td>
-                <td className="px-1 py-3 bg-[#ff9900] text-center text-black">
+                <td className="px-1 py-3 bg-[#e568ed] text-center text-black">
                   {fila['Potencia-2']}
                 </td>
                 <td className="px-1 py-3 bg-[#ffff00] text-center text-black">

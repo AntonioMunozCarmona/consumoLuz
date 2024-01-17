@@ -5,7 +5,7 @@ import CrearTablaResumenDia from './CrearTablaResumenDia'
 
 const TratarInfo = (props) => {
   const { data } = props
-  console.log('DATA', data)
+  //console.log('DATA', data)
   let color
   let misDatos = []
   let miDia = {}
@@ -15,7 +15,7 @@ const TratarInfo = (props) => {
     if (rest[13] === 'P1') {
       color = '#ff0000'
     } else if (rest[13] === 'P2') {
-      color = '#ff9900'
+      color = '#e568ed'
     } else if (rest[13] === 'P3') {
       color = '#ffff00'
     } else if (rest[13] === 'P4') {
@@ -39,9 +39,6 @@ const TratarInfo = (props) => {
       miDia.hour = hour
     }
 
-    if (hour === '00') {
-      miDia._00 = hourData
-    }
     if (hour === '01') {
       miDia._01 = hourData
     }
@@ -110,6 +107,9 @@ const TratarInfo = (props) => {
     }
     if (hour === '23') {
       miDia._23 = hourData
+    }
+    if (hour === '00') {
+      miDia._00 = hourData
 
       misDatos.push(miDia)
       miDia = {}
@@ -132,7 +132,7 @@ const TratarInfo = (props) => {
     // }
     return acc
   }, [])
-
+  //console.log('Mis datos:', misDatos)
   return (
     <div>
       <CrearTabla data={misDatos} campo={'Activa'} />

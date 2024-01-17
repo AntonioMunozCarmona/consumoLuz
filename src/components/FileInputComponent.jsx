@@ -18,8 +18,25 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
       const options = lines.map((line) => line.replace(/\r/, '').split(';'))
       // Dividir la fecha hora en dos campos
       options.map((array) => {
-        const [fecha, tiempo] = array[1].split(' ')
+        let [fecha, tiempo] = array[1].split(' ')
         const [hora] = tiempo.split(':')
+        if (hora === '00') {
+          // Hace que la hora 00 sea del dia anterior
+          let date = fecha.split('/')
+          let dia = new Date(date[2], date[1] - 1, date[0], 0, 0, 0, 0)
+          dia = new Date(dia.getTime() - 24 * 60 * 60 * 1000)
+          let d = dia.getDate()
+          let m = dia.getMonth() + 1
+
+          if (d < 10) {
+            d = '0' + d
+          }
+          if (m < 10) {
+            m = '0' + m
+          }
+          fecha = d + '/' + m + '/' + dia.getFullYear()
+          //console.log('FEcha', fecha)
+        }
         array.splice(1, 1, fecha, hora)
       })
 
@@ -46,13 +63,13 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
   const handleStartDateSelect = (event) => {
     const date = event.target.value
     setStartDate(date)
-    console.log(`Fecha de inicio seleccionada: ${date}`)
+    // console.log(`Fecha de inicio seleccionada: ${date}`)
   }
 
   const handleEndDateSelect = (event) => {
     const date = event.target.value
     setEndDate(date)
-    console.log(`Fecha final seleccionada: ${date}`)
+    // console.log(`Fecha final seleccionada: ${date}`)
   }
 
   const getDateRange = () => {
@@ -101,7 +118,7 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
     }
 
     if (startDate && endDate) {
-      console.log(`Rango de fechas: ${startDate} - ${endDate}`)
+      //console.log(`Rango de fechas: ${startDate} - ${endDate}`)
       const filteredData = getFilteredData()
 
       onDatosRecibidos(filteredData)

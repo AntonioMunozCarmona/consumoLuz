@@ -114,7 +114,7 @@ const CrearTablaResumen = (props) => {
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 bg-[#ff9900] text-center text-black"
+                className="px-6 py-3 bg-[#e568ed] text-center text-black"
               >
                 P2
               </th>
@@ -155,7 +155,7 @@ const CrearTablaResumen = (props) => {
               <td className="px-6 py-4 bg-[#ff0000] text-center text-white">
                 {formatearNumero(resumen['Activa-1'])}
               </td>
-              <td className="px-6 py-4 bg-[#ff9900] text-center text-black">
+              <td className="px-6 py-4 bg-[#e568ed] text-center text-black">
                 {formatearNumero(resumen['Activa-2'])}
               </td>
               <td className="px-6 py-4 bg-[#ffff00] text-center text-black">
@@ -181,7 +181,7 @@ const CrearTablaResumen = (props) => {
               <td className="px-6 py-4 bg-[#ff0000] text-center text-white">
                 {formatearNumero(resumen['Reactiva-1'])}
               </td>
-              <td className="px-6 py-4 bg-[#ff9900] text-center text-black">
+              <td className="px-6 py-4 bg-[#e568ed] text-center text-black">
                 {formatearNumero(resumen['Reactiva-2'])}
               </td>
               <td className="px-6 py-4 bg-[#ffff00] text-center text-black">
@@ -207,7 +207,7 @@ const CrearTablaResumen = (props) => {
               <td className="px-6 py-4 bg-[#ff0000] text-center text-white">
                 {resumen['Potencia-1']}
               </td>
-              <td className="px-6 py-4 bg-[#ff9900] text-center text-black">
+              <td className="px-6 py-4 bg-[#e568ed] text-center text-black">
                 {resumen['Potencia-2']}
               </td>
               <td className="px-6 py-4 bg-[#ffff00] text-center text-black">
@@ -233,7 +233,7 @@ const CrearTablaResumen = (props) => {
               <td className="px-6 py-4 bg-[#ff0000] text-center text-white">
                 {formatearNumero(resumen['Horas-1'])}
               </td>
-              <td className="px-6 py-4 bg-[#ff9900] text-center text-black">
+              <td className="px-6 py-4 bg-[#e568ed] text-center text-black">
                 {formatearNumero(resumen['Horas-2'])}
               </td>
               <td className="px-6 py-4 bg-[#ffff00] text-center text-black">
