@@ -36,7 +36,6 @@ const TratarInfo = (props) => {
     if (!miDia.name || name !== miDia.name) {
       miDia.name = name
       miDia.date = date
-      miDia.hour = hour
     }
 
     if (hour === '01') {
@@ -115,21 +114,6 @@ const TratarInfo = (props) => {
       miDia = {}
     }
 
-    //const dateObj = new Date(date)
-    //const dateString = dateObj.toLocaleDateString()
-    //const hourString = `${i.toString().padStart(2, '0')}`
-    // for (let i = 0; i < 24; i++) {
-    //   if (!acc[i]) {
-    //     acc[i] = {}
-    //   }
-
-    //   acc[i] = {
-    //     ...acc[i],
-    //     name,
-    //     date: dateString,
-    //     [hourString]: hourData,
-    //   }
-    // }
     return acc
   }, [])
   //console.log('Mis datos:', misDatos)

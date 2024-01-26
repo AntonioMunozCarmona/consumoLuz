@@ -88,7 +88,8 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
 
     const minDate = new Date(Math.min.apply(null, dates))
     const maxDate = new Date(Math.max.apply(null, dates))
-
+    maxDate.setDate(maxDate.getDate() + 1)
+    console.log('MIn', minDate, 'max', maxDate)
     return [
       minDate.toISOString().split('T')[0],
       maxDate.toISOString().split('T')[0],
@@ -118,7 +119,7 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
     }
 
     if (startDate && endDate) {
-      //console.log(`Rango de fechas: ${startDate} - ${endDate}`)
+      console.log(`Rango de fechas: ${startDate} - ${endDate}`)
       const filteredData = getFilteredData()
 
       onDatosRecibidos(filteredData)
@@ -157,6 +158,9 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm mb-2 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-4/12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             onChange={handleCupSelect}
           >
+            <option key={111111} value="Seleccione opcion:">
+              Seleccione opcion
+            </option>
             {getCupsOptions().map((option, index) => (
               <option key={index} value={option}>
                 {option}
@@ -182,7 +186,7 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
                     className="inputdata m-2"
                     min={minDate}
                     max={maxDate}
-                    value={endDate || maxDate}
+                    value={endDate || startDate}
                     onChange={handleEndDateSelect}
                   />
                 </>
