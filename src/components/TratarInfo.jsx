@@ -2,10 +2,11 @@ import PropTypes from 'prop-types'
 import CrearTabla from './CrearTabla'
 import CrearTablaResumen from './CrearTablaResumen'
 import CrearTablaResumenDia from './CrearTablaResumenDia'
+import { horas, colores } from '../utils/constantes'
 
 const TratarInfo = (props) => {
   const { data } = props
-  //console.log('DATA', data)
+  console.log('DATA', data)
   let color
   let misDatos = []
   let miDia = {}
@@ -13,17 +14,17 @@ const TratarInfo = (props) => {
     const [name, date, hour, ...rest] = curr
 
     if (rest[13] === 'P1') {
-      color = '#ff0000'
+      color = colores.P1
     } else if (rest[13] === 'P2') {
-      color = '#e568ed'
+      color = colores.P2
     } else if (rest[13] === 'P3') {
-      color = '#ffff00'
+      color = colores.P3
     } else if (rest[13] === 'P4') {
-      color = '#003366'
+      color = colores.P4
     } else if (rest[13] === 'P5') {
-      color = '#1f82ce'
+      color = colores.P5
     } else if (rest[13] === 'P6') {
-      color = '#04fb04'
+      color = colores.P6
     }
 
     const hourData = {
@@ -109,14 +110,25 @@ const TratarInfo = (props) => {
     }
     if (hour === '00') {
       miDia._00 = hourData
-
+      // Comprobar que existen todos los campos
+      horas.forEach((hora) => {
+        if (!miDia.hasOwnProperty(hora)) {
+          miDia[hora] = {
+            Activa: 0,
+            Reactiva: 0,
+            Potencia: 0,
+            Periodo: 'ND',
+            Color: colores.ND,
+          }
+        }
+      })
       misDatos.push(miDia)
       miDia = {}
     }
 
     return acc
   }, [])
-  //console.log('Mis datos:', misDatos)
+  console.log('Mis datos:', misDatos)
   return (
     <div>
       <CrearTabla data={misDatos} campo={'Activa'} />

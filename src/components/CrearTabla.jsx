@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { colores } from '../utils/constantes'
 
 function getWeekDay(date) {
   let days = ['D', 'L', 'M', 'X', 'J', 'V', 'S']
@@ -59,80 +60,80 @@ const CrearTabla = ({ data, campo }) => {
             {caption}
           </caption>
           <thead className="text-xs text-white text-center uppercase bg-blue-600 dark:text-white">
-            <tr>
-              <th scope="col" className="px-1 py-3">
+            <tr className="px-1 py-3">
+              <th scope="col" className="">
                 Fecha
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 00
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 01
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 02
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 03
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 04
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 05
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 06
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 07
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 08
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 09
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 10
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 11
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 12
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 13
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 14
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 15
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 16
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 17
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 18
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 19
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 20
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 21
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 22
               </th>
-              <th scope="col" className="px-1 py-3">
+              <th scope="col" className="">
                 23
               </th>
             </tr>
@@ -141,156 +142,84 @@ const CrearTabla = ({ data, campo }) => {
             {data.map((fila) => (
               <tr
                 key={fila.date}
-                className=" border-b border-blue-400 text-gray-500 text-center"
+                className=" border-b border-blue-400 text-gray-500 text-center px-1 py-3"
               >
                 <th
                   scope="row"
-                  className="px-1 py-3 bg-blue-500 text-gray-100 font-medium  whitespace-nowrap dark:text-blue-100"
+                  className=" bg-blue-500 text-gray-100 font-medium  whitespace-nowrap dark:text-blue-100"
                 >
                   {fila.date} - {getWeekDay(fila.date)}
                 </th>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._01.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._01.Color }}>
                   {getCellValue(fila._01, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._02.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._02.Color }}>
                   {getCellValue(fila._02, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._03.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._03.Color }}>
                   {getCellValue(fila._03, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._04.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._04.Color }}>
                   {getCellValue(fila._04, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._05.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._05.Color }}>
                   {getCellValue(fila._05, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._06.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._06.Color }}>
                   {getCellValue(fila._06, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._07.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._07.Color }}>
                   {getCellValue(fila._07, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._08.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._08.Color }}>
                   {getCellValue(fila._08, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._09.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._09.Color }}>
                   {getCellValue(fila._09, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._10.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._10.Color }}>
                   {getCellValue(fila._10, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._11.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._11.Color }}>
                   {getCellValue(fila._11, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._12.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._12.Color }}>
                   {getCellValue(fila._12, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._13.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._13.Color }}>
                   {getCellValue(fila._13, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._14.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._14.Color }}>
                   {getCellValue(fila._14, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._15.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._15.Color }}>
                   {getCellValue(fila._15, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._16.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._16.Color }}>
                   {getCellValue(fila._16, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._17.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._17.Color }}>
                   {getCellValue(fila._17, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._18.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._18.Color }}>
                   {getCellValue(fila._18, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._19.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._19.Color }}>
                   {getCellValue(fila._19, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._20.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._20.Color }}>
                   {getCellValue(fila._20, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._21.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._21.Color }}>
                   {getCellValue(fila._21, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._22.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._22.Color }}>
                   {getCellValue(fila._22, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._23.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._23.Color }}>
                   {getCellValue(fila._23, campo)}
                 </td>
-                <td
-                  className="px-1 py-3"
-                  style={{ backgroundColor: fila._00.Color }}
-                >
+                <td className="" style={{ backgroundColor: fila._00.Color }}>
                   {getCellValue(fila._00, campo)}
                 </td>
               </tr>
@@ -298,12 +227,20 @@ const CrearTabla = ({ data, campo }) => {
           </tbody>
         </table>
         <div className="mt-4 flex justify-evenly text-center">
-          <span className="bg-[#ff0000] w-1/12 p-1 text-white">P1</span>
-          <span className="bg-[#e568ed] w-1/12 p-1">P2</span>
-          <span className="bg-[#ffff00] w-1/12 p-1">P3</span>
-          <span className="bg-[#003366] w-1/12 p-1 text-white">P4</span>
-          <span className="bg-[#1f82ce] w-1/12 p-1 text-white">P5</span>
-          <span className="bg-[#04fb04] w-1/12 p-1">P6</span>
+          <span
+            className={`bg-[${colores.P1}] w-1/12 p-1 text-white
+          `}
+          >
+            P1
+          </span>
+          <span className={`bg-[${colores.P2}] w-1/12 p-1`}>P2</span>
+          <span className={`bg-[${colores.P3}] w-1/12 p-1`}>P3</span>
+          <span className={`bg-[${colores.P4}] w-1/12 p-1 text-white`}>P4</span>
+          <span className={`bg-[${colores.P5}] w-1/12 p-1 `}>P5</span>
+          <span className={`bg-[${colores.P6}] w-1/12 p-1 `}>P6</span>
+          <span className={`bg-[${colores.ND}] w-1/12 p-1 text-white`}>
+            N.D.
+          </span>
         </div>
       </div>
     </>
