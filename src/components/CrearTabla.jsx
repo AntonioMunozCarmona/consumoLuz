@@ -228,17 +228,46 @@ const CrearTabla = ({ data, campo }) => {
         </table>
         <div className="mt-4 flex justify-evenly text-center">
           <span
-            className={`bg-[${colores.P1}] w-1/12 p-1 text-white
+            className={`w-1/12 p-1 text-white
           `}
+            style={{ backgroundColor: colores.P1 }}
           >
             P1
           </span>
-          <span className={`bg-[${colores.P2}] w-1/12 p-1`}>P2</span>
-          <span className={`bg-[${colores.P3}] w-1/12 p-1`}>P3</span>
-          <span className={`bg-[${colores.P4}] w-1/12 p-1 text-white`}>P4</span>
-          <span className={`bg-[${colores.P5}] w-1/12 p-1 `}>P5</span>
-          <span className={`bg-[${colores.P6}] w-1/12 p-1 `}>P6</span>
-          <span className={`bg-[${colores.ND}] w-1/12 p-1 text-white`}>
+          <span
+            className={`w-1/12 p-1`}
+            style={{ backgroundColor: colores.P2 }}
+          >
+            P2
+          </span>
+          <span
+            className={`w-1/12 p-1`}
+            style={{ backgroundColor: colores.P3 }}
+          >
+            P3
+          </span>
+          <span
+            className={`w-1/12 p-1 text-white`}
+            style={{ backgroundColor: colores.P4 }}
+          >
+            P4
+          </span>
+          <span
+            className={`w-1/12 p-1`}
+            style={{ backgroundColor: colores.P5 }}
+          >
+            P5
+          </span>
+          <span
+            className={`w-1/12 p-1`}
+            style={{ backgroundColor: colores.P6 }}
+          >
+            P6
+          </span>
+          <span
+            className={`w-1/12 p-1  text-white`}
+            style={{ backgroundColor: colores.ND }}
+          >
             N.D.
           </span>
         </div>
