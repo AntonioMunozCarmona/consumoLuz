@@ -9,6 +9,8 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
   const fileInputRef = useRef()
 
   const handleFileUpload = (event) => {
+    setFileContent(null)
+    setSelectedCup(null)
     const file = event.target.files[0]
     const reader = new FileReader()
 
@@ -89,7 +91,7 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
     const minDate = new Date(Math.min.apply(null, dates))
     const maxDate = new Date(Math.max.apply(null, dates))
     maxDate.setDate(maxDate.getDate() + 1)
-    console.log('MIn', minDate, 'max', maxDate)
+    // console.log('MIn', minDate, 'max', maxDate)
     return [
       minDate.toISOString().split('T')[0],
       maxDate.toISOString().split('T')[0],
@@ -119,7 +121,7 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
     }
 
     if (startDate && endDate) {
-      console.log(`Rango de fechas: ${startDate} - ${endDate}`)
+      // console.log(`Rango de fechas: ${startDate} - ${endDate}`)
       const filteredData = getFilteredData()
 
       onDatosRecibidos(filteredData)
@@ -131,11 +133,9 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
   return (
     <div>
       <label
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        className="block mb-2 text-sm font-medium text-gray-900"
         htmlFor="fileInput"
-      >
-        Upload file
-      </label>
+      ></label>
       <input
         className="block w-full lg:w-3/5 mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
         aria-describedby="file_input_help"

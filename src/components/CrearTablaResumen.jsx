@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { colores } from '../utils/constantes'
 
 function formatearNumero(numero) {
   return new Intl.NumberFormat('es-CL').format(numero)
@@ -97,48 +98,54 @@ const CrearTablaResumen = (props) => {
       ))} */}
 
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <table className="w-2/5 mx-auto text-sm text-left rtl:text-right text-gray-700 dark:text-gray-600">
           <caption className="text-2xl m-8">
             Resumen del Intervalo de fechas por período
           </caption>
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-6 py-3">
+            <tr className="border-b dark:border-gray-700">
+              <th scope="col" className="px-4 py-2">
                 Concepto
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 bg-[#ff0000] text-center text-white"
+                className="px-4 py-2 text-center text-white"
+                style={{ backgroundColor: colores.P1 }}
               >
                 P1
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 bg-[#e568ed] text-center text-black"
+                className="px-4 py-2 text-center text-black"
+                style={{ backgroundColor: colores.P2 }}
               >
                 P2
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 bg-[#ffff00] text-center text-black"
+                className="px-4 py-2 text-center text-black"
+                style={{ backgroundColor: colores.P3 }}
               >
                 P3
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 bg-[#003366]  text-center text-white"
+                className="px-4 py-2 text-center text-white"
+                style={{ backgroundColor: colores.P4 }}
               >
                 P4
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 bg-[#1f82ce] text-center text-white"
+                className="px-4 py-2 text-center text-white"
+                style={{ backgroundColor: colores.P5 }}
               >
                 P5
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 bg-[#04fb04] text-center text-black"
+                className="px-4 py-2 text-center text-black"
+                style={{ backgroundColor: colores.P6 }}
               >
                 P6
               </th>
@@ -148,104 +155,176 @@ const CrearTablaResumen = (props) => {
             <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
               <th
                 scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
                 Activa
               </th>
-              <td className="px-6 py-4 bg-[#ff0000] text-center text-white">
+              <td
+                className="px-4 py-2 text-center text-white"
+                style={{ backgroundColor: colores.P1 }}
+              >
                 {formatearNumero(resumen['Activa-1'])}
               </td>
-              <td className="px-6 py-4 bg-[#e568ed] text-center text-black">
+              <td
+                className="px-4 py-2 text-center text-black"
+                style={{ backgroundColor: colores.P2 }}
+              >
                 {formatearNumero(resumen['Activa-2'])}
               </td>
-              <td className="px-6 py-4 bg-[#ffff00] text-center text-black">
+              <td
+                className="px-4 py-2 text-center text-black"
+                style={{ backgroundColor: colores.P3 }}
+              >
                 {formatearNumero(resumen['Activa-3'])}
               </td>
-              <td className="px-6 py-4 bg-[#003366]  text-center text-white">
+              <td
+                className="px-4 py-2 text-center text-white"
+                style={{ backgroundColor: colores.P4 }}
+              >
                 {formatearNumero(resumen['Activa-4'])}
               </td>
-              <td className="px-6 py-4 bg-[#1f82ce] text-center text-white">
+              <td
+                className="px-4 py-2 text-center text-white"
+                style={{ backgroundColor: colores.P5 }}
+              >
                 {formatearNumero(resumen['Activa-5'])}
               </td>
-              <td className="px-6 py-4 bg-[#04fb04] text-center text-black">
+              <td
+                className="px-4 py-2 text-center text-black"
+                style={{ backgroundColor: colores.P6 }}
+              >
                 {formatearNumero(resumen['Activa-6'])}
               </td>
             </tr>
             <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
               <th
                 scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
                 Reactiva
               </th>
-              <td className="px-6 py-4 bg-[#ff0000] text-center text-white">
+              <td
+                className="px-4 py-2 text-center text-white"
+                style={{ backgroundColor: colores.P1 }}
+              >
                 {formatearNumero(resumen['Reactiva-1'])}
               </td>
-              <td className="px-6 py-4 bg-[#e568ed] text-center text-black">
+              <td
+                className="px-4 py-2 text-center text-black"
+                style={{ backgroundColor: colores.P2 }}
+              >
                 {formatearNumero(resumen['Reactiva-2'])}
               </td>
-              <td className="px-6 py-4 bg-[#ffff00] text-center text-black">
+              <td
+                className="px-4 py-2 text-center text-black"
+                style={{ backgroundColor: colores.P3 }}
+              >
                 {formatearNumero(resumen['Reactiva-3'])}
               </td>
-              <td className="px-6 py-4 bg-[#003366]  text-center text-white">
+              <td
+                className="px-4 py-2  text-center text-white"
+                style={{ backgroundColor: colores.P4 }}
+              >
                 {formatearNumero(resumen['Reactiva-4'])}
               </td>
-              <td className="px-6 py-4 bg-[#1f82ce] text-center text-white">
+              <td
+                className="px-4 py-2 text-center text-white"
+                style={{ backgroundColor: colores.P5 }}
+              >
                 {formatearNumero(resumen['Reactiva-5'])}
               </td>
-              <td className="px-6 py-4 bg-[#04fb04] text-center text-black">
+              <td
+                className="px-4 py-2 text-center text-black"
+                style={{ backgroundColor: colores.P6 }}
+              >
                 {formatearNumero(resumen['Reactiva-6'])}
               </td>
             </tr>
             <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
               <th
                 scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
                 Potencia
               </th>
-              <td className="px-6 py-4 bg-[#ff0000] text-center text-white">
+              <td
+                className="px-4 py-2 text-center text-white"
+                style={{ backgroundColor: colores.P1 }}
+              >
                 {resumen['Potencia-1']}
               </td>
-              <td className="px-6 py-4 bg-[#e568ed] text-center text-black">
+              <td
+                className="px-4 py-2 text-center text-black"
+                style={{ backgroundColor: colores.P2 }}
+              >
                 {resumen['Potencia-2']}
               </td>
-              <td className="px-6 py-4 bg-[#ffff00] text-center text-black">
+              <td
+                className="px-4 py-2 text-center text-black"
+                style={{ backgroundColor: colores.P3 }}
+              >
                 {resumen['Potencia-3']}
               </td>
-              <td className="px-6 py-4 bg-[#003366]  text-center text-white">
+              <td
+                className="px-4 py-2 text-center text-white"
+                style={{ backgroundColor: colores.P4 }}
+              >
                 {resumen['Potencia-4']}
               </td>
-              <td className="px-6 py-4 bg-[#1f82ce] text-center text-white">
+              <td
+                className="px-4 py-2 text-center text-white"
+                style={{ backgroundColor: colores.P5 }}
+              >
                 {resumen['Potencia-5']}
               </td>
-              <td className="px-6 py-4 bg-[#04fb04] text-center text-black">
+              <td
+                className="px-4 py-2 text-center text-black"
+                style={{ backgroundColor: colores.P6 }}
+              >
                 {resumen['Potencia-6']}
               </td>
             </tr>
             <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
               <th
                 scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
                 Horas
               </th>
-              <td className="px-6 py-4 bg-[#ff0000] text-center text-white">
+              <td
+                className="px-4 py-2 text-center text-white"
+                style={{ backgroundColor: colores.P1 }}
+              >
                 {formatearNumero(resumen['Horas-1'])}
               </td>
-              <td className="px-6 py-4 bg-[#e568ed] text-center text-black">
+              <td
+                className="px-4 py-2 text-center text-black"
+                style={{ backgroundColor: colores.P2 }}
+              >
                 {formatearNumero(resumen['Horas-2'])}
               </td>
-              <td className="px-6 py-4 bg-[#ffff00] text-center text-black">
+              <td
+                className="px-4 py-2 text-center text-black"
+                style={{ backgroundColor: colores.P3 }}
+              >
                 {formatearNumero(resumen['Horas-3'])}
               </td>
-              <td className="px-6 py-4 bg-[#003366]  text-center text-white">
+              <td
+                className="px-4 py-2 text-center text-white"
+                style={{ backgroundColor: colores.P4 }}
+              >
                 {formatearNumero(resumen['Horas-4'])}
               </td>
-              <td className="px-6 py-4 bg-[#1f82ce] text-center text-white">
+              <td
+                className="px-4 py-2 text-center text-white"
+                style={{ backgroundColor: colores.P5 }}
+              >
                 {formatearNumero(resumen['Horas-5'])}
               </td>
-              <td className="px-6 py-4 bg-[#04fb04] text-center text-black">
+              <td
+                className="px-4 py-2 text-center text-black"
+                style={{ backgroundColor: colores.P6 }}
+              >
                 {formatearNumero(resumen['Horas-6'])}
               </td>
             </tr>
