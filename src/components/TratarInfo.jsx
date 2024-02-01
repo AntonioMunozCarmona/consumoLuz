@@ -6,7 +6,7 @@ import { horas, colores } from '../utils/constantes'
 
 const TratarInfo = (props) => {
   const { data } = props
-  console.log('DATA', data)
+  // console.log('DATA', data)
   let color
   let misDatos = []
   let miDia = {}
@@ -353,7 +353,9 @@ const TratarInfo = (props) => {
       <CrearTabla data={misDatos} campo={'Activa'} />
       <CrearTabla data={misDatos} campo={'Reactiva'} />
       <CrearTabla data={misDatos} campo={'Potencia'} />
-      <CrearTablaResumenDia data={misDatos} />
+      <CrearTablaResumenDia data={misDatos} campo={'Activa'} />
+      <CrearTablaResumenDia data={misDatos} campo={'Reactiva'} />
+      <CrearTablaResumenDia data={misDatos} campo={'Potencia'} />
       <CrearTablaResumen data={misDatos} />
     </div>
   )
