@@ -4,6 +4,14 @@ import CrearTablaResumen from './CrearTablaResumen'
 import CrearTablaResumenDia from './CrearTablaResumenDia'
 import { horas, colores } from '../utils/constantes'
 
+function convertirFecha(fechaString) {
+  if (!fechaString) return
+
+  let [dia, mes, anio] = fechaString.split('/')
+
+  return new Date(+anio, mes - 1, +dia)
+}
+
 const TratarInfo = (props) => {
   const { data } = props
   // console.log('DATA', data)
@@ -341,10 +349,8 @@ const TratarInfo = (props) => {
     }
     misDatos.push(obj)
   })
-  misDatos.sort(function (a, b) {
-    if (a.date > b.date) return 1
-    if (a.date < b.date) return -1
-    return 0
+  misDatos.sort((a, b) => {
+    return convertirFecha(a.date) - convertirFecha(b.date)
   })
   //console.log(misDatos)
 

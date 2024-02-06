@@ -119,7 +119,7 @@ const CrearTablaResumenDia = (props) => {
   return (
     <>
       <div className="relative flex overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-2/5 mx-auto text-sm text-center rtl:text-right text-gray-700 dark:text-gray-600">
+        <table className="w-2/5 mx-auto text-sm text-center rtl:text-right text-gray-700 dark:text-gray-600 select-all">
           <caption className="text-2xl m-8 text-center">
             Resumen diario {caption}
           </caption>
