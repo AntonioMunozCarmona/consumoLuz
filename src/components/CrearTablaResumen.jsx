@@ -103,8 +103,8 @@ const CrearTablaResumen = (props) => {
             Resumen del Intervalo de fechas por período
           </caption>
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr className="border-b dark:border-gray-700">
-              <th scope="col" className="px-4 py-2">
+            <tr>
+              <th scope="col" className="px-6 py-3">
                 Concepto
               </th>
               <th
