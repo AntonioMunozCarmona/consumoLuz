@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Nav from './components/Nav'
 import Analisis from './components/Analisis.jsx'
-import Projects from './components/Projects.jsx'
+import Resumen from './components/Resumen.jsx'
 
 const Home = () => <h1>Home</h1>
 const Team = () => <h1>Team</h1>
@@ -20,7 +20,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/team" element={<Team />} />
         <Route path="/empresa" element={<Empresa />} />
-        <Route path="/projects" element={<Projects />} />
+        <Route path="/resumen" element={<Resumen />} />
 
         <Route path="/analisis" element={<Analisis />} />
       </Routes>

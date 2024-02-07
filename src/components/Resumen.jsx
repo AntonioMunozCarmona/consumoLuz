@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import EntradaFileComponent from './EntradaFileComponent'
 
-const Projects = () => {
+const Resumen = () => {
   const [datos, setDatos] = useState([])
   const [tabla, setTabla] = useState([])
 
@@ -21,4 +21,4 @@ const Projects = () => {
   )
 }
 
-export default Projects
+export default Resumen

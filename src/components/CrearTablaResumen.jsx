@@ -104,7 +104,7 @@ const CrearTablaResumen = (props) => {
           </caption>
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-4 py-2">
                 Concepto
               </th>
               <th
