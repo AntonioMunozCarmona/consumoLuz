@@ -98,7 +98,7 @@ const CrearTablaResumen = (props) => {
       ))} */}
 
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-2/5 mx-auto text-sm text-left rtl:text-right text-gray-700 dark:text-gray-600">
+        <table className="w-2/5 mx-auto text-sm text-left rtl:text-right text-gray-700 dark:text-gray-600 select-all">
           <caption className="text-2xl m-8">
             Resumen del Intervalo de fechas por período
           </caption>

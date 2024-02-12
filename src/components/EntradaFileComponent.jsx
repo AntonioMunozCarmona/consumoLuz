@@ -676,10 +676,10 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
         )}
         {tratatedInfo && (
           <>
-            <h5>Tratated information</h5>
+            <h5></h5>
           </>
         )}
-        {tablaTotal && <>Presentacion de todos los datos</>}
+        {tablaTotal && <></>}
       </>
       {resumenMesTablaTotal && isTermined && (
         <div>
@@ -687,6 +687,10 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
           <CrearTablaResumenMes
             data={resumenMesTablaTotal}
             campo={'Reactiva'}
+          />
+          <CrearTablaResumenMes
+            data={resumenMesTablaTotal}
+            campo={'ReactivaFact'}
           />
           <CrearTablaResumenMes
             data={resumenMesTablaTotal}

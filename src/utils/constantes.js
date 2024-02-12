@@ -25,13 +25,13 @@ export const horas = [
   '_23',
 ]
 export const colores = {
-  P1: '#eb4d4b',
-  P2: '#e056fd',
-  P3: '#f9ca24',
-  P4: '#30336b',
-  P5: '#7ed6df',
+  P1: '#FF0000',
+  P2: '#FF66CC',
+  P3: '#FFFF00',
+  P4: '#0070C0',
+  P5: '#00B0F0',
   P6: '#6ab04c',
-  ND: '#535c68',
+  ND: '#92D050',
 }
 //   P1: '#eb4d4b',
 //  P2: '#be2edd',
@@ -49,3 +49,8 @@ export const colores = {
 // P5: '#1f82ce',
 // P6: '#04fb04',
 // ND: '#555555',
+
+export const precios = {
+  menor0_8: 0.062332,
+  mayor0_8: 0.041554,
+}
