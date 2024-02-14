@@ -11,7 +11,10 @@ function crearCaption(campo) {
     caption = 'Penalización Energía Reactiva (€)'
   } else if (campo === 'Potencia') {
     caption = 'Potencia'
+  } else if (campo === 'PotenciaFact') {
+    caption = 'Exceso de Potencia'
   }
+
   return caption
 }
 
@@ -21,7 +24,7 @@ function formatearNumero(numero) {
 
 const handleClick = (ev, mes) => {
   ev.preventDefault()
-  console.log('EV', ev, 'mes ', mes)
+  //console.log('EV', ev, 'mes ', mes)
   // Ventana modal
   var modal = document.getElementById('ventanaModal')
 
@@ -100,6 +103,8 @@ function getCellValue(fila, fieldName, indice) {
       return redondearDecimales(reactiva * precio, 2)
     case 'Potencia':
       return fila[`Potencia-${indice}`]
+    case 'PotenciaFact':
+      return fila[`Potencia-${indice}`]
     default:
       return null
   }
@@ -110,60 +115,62 @@ const CrearTablaResumenMes = (props) => {
   let caption = crearCaption(campo)
   return (
     <>
-      <div className="relative flex overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-4/5 mx-auto text-sm text-center rtl:text-right text-gray-700 dark:text-gray-600">
+      <div className="relative w-10/12 flex overflow-x-auto shadow-md sm:rounded-lg">
+        <table className="mx-auto w-full text-sm text-center rtl:text-right text-gray-700 dark:text-gray-600">
           <caption className="text-2xl m-8 text-center">
             Resumen mensual {caption}
           </caption>
 
           <thead className="text-l text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr className="px-1 py-2 border-b dark:border-gray-700">
-              <th scope="col">Mes</th>
+              <th className="min-w-8" scope="col">
+                Mes
+              </th>
               <th
                 scope="col"
-                className="text-center text-white"
+                className="text-center text-white min-w-8"
                 style={{ backgroundColor: colores.P1 }}
               >
                 P1
               </th>
               <th
                 scope="col"
-                className="px-1 py-2 text-center text-black"
+                className="px-1 py-2 text-center text-black min-w-8"
                 style={{ backgroundColor: colores.P2 }}
               >
                 P2
               </th>
               <th
                 scope="col"
-                className="text-center text-black"
+                className="text-center text-black min-w-8"
                 style={{ backgroundColor: colores.P3 }}
               >
                 P3
               </th>
               <th
                 scope="col"
-                className="text-center text-white"
+                className="text-center text-white min-w-8"
                 style={{ backgroundColor: colores.P4 }}
               >
                 P4
               </th>
               <th
                 scope="col"
-                className="text-center text-white"
+                className="text-center text-white min-w-8"
                 style={{ backgroundColor: colores.P5 }}
               >
                 P5
               </th>
               <th
                 scope="col"
-                className="text-center text-black"
+                className="text-center text-black min-w-8"
                 style={{ backgroundColor: colores.P6 }}
               >
                 P6
               </th>
               <th
                 scope="col"
-                className="text-center text-black  dark:border-gray-700"
+                className="text-center text-black  dark:border-gray-700 min-w-8"
               ></th>
             </tr>
           </thead>
@@ -215,10 +222,10 @@ const CrearTablaResumenMes = (props) => {
                 >
                   {formatearNumero(getCellValue(fila, campo, 6))}
                 </td>
-                <td className="text-center text-gray-100 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                <td className="px-1 py-1 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                   <button
                     id={fila.mes}
-                    className="abrirModal rounded bg-gray-600 p-1 hover:bg-gray-400 transition ease-in duration-300"
+                    className="abrirModal rounded bg-gray-100 p-1 hover:bg-gray-400 transition ease-in duration-300"
                     onClick={(e) => handleClick(e, fila.mes)}
                   >
                     Revisar mes

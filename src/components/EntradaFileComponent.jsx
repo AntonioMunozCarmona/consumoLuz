@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { horas, colores } from '../utils/constantes'
 import CrearTablaResumenMes from './CrearTablaMes'
+import { empresas } from '../utils/listCups'
 
 function convertirFecha(fechaString) {
   if (!fechaString) return
@@ -14,11 +15,13 @@ function convertirFecha(fechaString) {
 const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
   const [fileContent, setFileContent] = useState(null)
   const [selectedCup, setSelectedCup] = useState(null)
+  const [cliente, setCliente] = useState(null)
   const [datosFiltrados, setDatosFiltrados] = useState(null)
   const [tratatedInfo, setTratatedInfo] = useState(null)
   const [tablaTotal, setTablaTotal] = useState(null)
   const [resumenMesTablaTotal, setResumenMesTablaTotal] = useState(null)
   const [isTermined, setIsTermined] = useState(false)
+  const [excesoPot, setExcesoPot] = useState(null)
 
   const fileInputRef = useRef()
 
@@ -62,6 +65,13 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
     reader.readAsText(file)
   }
 
+  const handleClick = (e) => {
+    setSelectedCup(e.target.value)
+    //console.log('value', e.target.value)
+    console.log('Cleinte', cliente)
+    //console.log('CUP Seleccionada', selectedCup)
+  }
+
   const getCupsOptions = () => {
     if (!fileContent) return []
     const cupsSet = new Set()
@@ -69,12 +79,18 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
     fileContent.forEach((arr) => cupsSet.add(arr[0]))
     return Array.from(cupsSet)
   }
+  useEffect(() => {
+    const encuentraEmpresa = (cup) => {
+      const empresaBuscada = empresas.find((empresa) => empresa.cup === cup)
+      return empresaBuscada !== undefined
+        ? empresaBuscada
+        : {
+            identificador: 'CUP NO ENCONTRADA',
+          }
+    }
+    setCliente(encuentraEmpresa(selectedCup))
+  }, [fileContent, selectedCup])
 
-  const handleClick = (e) => {
-    setSelectedCup(e.target.value)
-    //console.log('value', e.target.value)
-    //console.log('CUP Seleccionada', selectedCup)
-  }
   useEffect(() => {
     const filtrarCup = () => {
       if (!fileContent || !selectedCup) return []
@@ -638,6 +654,45 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
     setIsTermined(s)
   }, [resumenMesTablaTotal])
 
+  useEffect(() => {
+    //console.log('La tabla Inicial', resumenMesTablaTotal)
+
+    const isExceded = () => {
+      if (!resumenMesTablaTotal) return false
+
+      let excesos = []
+      let copiaMes = {}
+      resumenMesTablaTotal.map((mes) => {
+        copiaMes = { ...mes }
+
+        copiaMes['Potencia-1'] > cliente.condiciones.P1
+          ? copiaMes['Potencia-1']
+          : (copiaMes['Potencia-1'] = '')
+        copiaMes['Potencia-2'] > cliente.condiciones.P2
+          ? copiaMes['Potencia-2']
+          : (copiaMes['Potencia-2'] = '')
+        copiaMes['Potencia-3'] > cliente.condiciones.P3
+          ? copiaMes['Potencia-3']
+          : (copiaMes['Potencia-3'] = '')
+        copiaMes['Potencia-4'] > cliente.condiciones.P4
+          ? copiaMes['Potencia-4']
+          : (copiaMes['Potencia-4'] = '')
+        copiaMes['Potencia-5'] > cliente.condiciones.P5
+          ? copiaMes['Potencia-5']
+          : (copiaMes['Potencia-5'] = '')
+        copiaMes['Potencia-6'] > cliente.condiciones.P6
+          ? copiaMes['Potencia-6']
+          : (copiaMes['Potencia-6'] = '')
+        excesos.push(copiaMes)
+      })
+      return excesos
+    }
+    let s = isExceded()
+    // console.log('LOS EXCESOS', s)
+    // console.log('La tabla', resumenMesTablaTotal)
+    setExcesoPot(s)
+  }, [resumenMesTablaTotal])
+
   return (
     <div>
       <label
@@ -671,31 +726,57 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
 
         {selectedCup && datosFiltrados && (
           <>
-            <h5>{selectedCup}</h5>
+            <h2 className="text-center font-bold text-lg w-100">
+              Información del cliente
+            </h2>
+            <article className="flex flex-row gap-2 justify-between mx-3">
+              <div className="facturacion flex flex-col w-6/10 text-sm">
+                <p>Titular: {cliente.titular}</p>
+                <p>NIF: {cliente.cif}</p>
+                <p>Dirección: {cliente.calle}</p>
+                <p>Provincia: {cliente.provincia}</p>
+              </div>
+              <div className="w-4/10">
+                <p>
+                  Identificador:{' '}
+                  <span className="font-bold">{cliente.identificador}</span>
+                </p>
+                <p>
+                  CUPS: <span className="font-bold">{cliente.cup}</span>
+                </p>
+                <p>Tarifa: {cliente.tarifa}</p>
+              </div>
+            </article>
           </>
         )}
-        {tratatedInfo && (
-          <>
-            <h5></h5>
-          </>
-        )}
+        {tratatedInfo && <></>}
         {tablaTotal && <></>}
       </>
       {resumenMesTablaTotal && isTermined && (
         <div>
-          <CrearTablaResumenMes data={resumenMesTablaTotal} campo={'Activa'} />
-          <CrearTablaResumenMes
-            data={resumenMesTablaTotal}
-            campo={'Reactiva'}
-          />
-          <CrearTablaResumenMes
-            data={resumenMesTablaTotal}
-            campo={'ReactivaFact'}
-          />
-          <CrearTablaResumenMes
-            data={resumenMesTablaTotal}
-            campo={'Potencia'}
-          />
+          <div className="activa flex fle-row justify-center">
+            <CrearTablaResumenMes
+              data={resumenMesTablaTotal}
+              campo={'Activa'}
+            />
+          </div>
+          <div className="reactiva flex fle-row justify-around gap-20">
+            <CrearTablaResumenMes
+              data={resumenMesTablaTotal}
+              campo={'Reactiva'}
+            />
+            <CrearTablaResumenMes
+              data={resumenMesTablaTotal}
+              campo={'ReactivaFact'}
+            />
+          </div>
+          <div className="potencia flex flex-row justify-around gap-20">
+            <CrearTablaResumenMes
+              data={resumenMesTablaTotal}
+              campo={'Potencia'}
+            />
+            <CrearTablaResumenMes data={excesoPot} campo={'PotenciaFact'} />
+          </div>
         </div>
       )}
     </div>
