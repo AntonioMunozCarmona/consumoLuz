@@ -666,22 +666,22 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
       resumenMesTablaTotal.map((mes) => {
         copiaMes = { ...mes }
 
-        copiaMes['Potencia-1'] > cliente.condiciones.P1
+        copiaMes['Potencia-1'] > cliente.condiciones?.P1
           ? copiaMes['Potencia-1']
           : (copiaMes['Potencia-1'] = '')
-        copiaMes['Potencia-2'] > cliente.condiciones.P2
+        copiaMes['Potencia-2'] > cliente.condiciones?.P2
           ? copiaMes['Potencia-2']
           : (copiaMes['Potencia-2'] = '')
-        copiaMes['Potencia-3'] > cliente.condiciones.P3
+        copiaMes['Potencia-3'] > cliente.condiciones?.P3
           ? copiaMes['Potencia-3']
           : (copiaMes['Potencia-3'] = '')
-        copiaMes['Potencia-4'] > cliente.condiciones.P4
+        copiaMes['Potencia-4'] > cliente.condiciones?.P4
           ? copiaMes['Potencia-4']
           : (copiaMes['Potencia-4'] = '')
-        copiaMes['Potencia-5'] > cliente.condiciones.P5
+        copiaMes['Potencia-5'] > cliente.condiciones?.P5
           ? copiaMes['Potencia-5']
           : (copiaMes['Potencia-5'] = '')
-        copiaMes['Potencia-6'] > cliente.condiciones.P6
+        copiaMes['Potencia-6'] > cliente.condiciones?.P6
           ? copiaMes['Potencia-6']
           : (copiaMes['Potencia-6'] = '')
         excesos.push(copiaMes)
