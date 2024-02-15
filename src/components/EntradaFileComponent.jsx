@@ -81,6 +81,7 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
   }
   useEffect(() => {
     const encuentraEmpresa = (cup) => {
+      if (!fileContent || !selectedCup) return []
       const empresaBuscada = empresas.find((empresa) => empresa.cup === cup)
       return empresaBuscada !== undefined
         ? empresaBuscada
@@ -695,20 +696,22 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
 
   return (
     <div>
-      <label
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        htmlFor="fileInput"
-      ></label>
-      <input
-        className="block w-11/12 lg:w-3/5 mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-        aria-describedby="file_input_help"
-        id="fileInput"
-        type="file"
-        ref={fileInputRef}
-        onChange={handleFileUpload}
-      ></input>
+      <div className="print:hidden">
+        <label
+          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          htmlFor="fileInput"
+        ></label>
+        <input
+          className="block w-11/12 lg:w-3/5 mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+          aria-describedby="file_input_help"
+          id="fileInput"
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileUpload}
+        ></input>
+      </div>
 
-      <>
+      <div className="print:hidden">
         {fileContent &&
           getCupsOptions().map((cup) => (
             <button
@@ -720,11 +723,13 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
               {cup}
             </button>
           ))}
-      </>
+      </div>
       <>
         {}
 
-        {selectedCup && datosFiltrados && (
+        {selectedCup && datosFiltrados && <></>}
+        {tratatedInfo && <></>}
+        {tablaTotal && (
           <>
             <h2 className="text-center font-bold text-lg w-100">
               Información del cliente
@@ -745,12 +750,36 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
                   CUPS: <span className="font-bold">{cliente.cup}</span>
                 </p>
                 <p>Tarifa: {cliente.tarifa}</p>
+                <div>
+                  Condiciones: <br />
+                  <span className="font-bold text-sm">
+                    P1: {cliente.condiciones?.P1}
+                  </span>
+                  {' - '}
+                  <span className="font-bold text-sm">
+                    P2: {cliente.condiciones?.P2}
+                  </span>
+                  {' - '}
+                  <span className="font-bold text-sm">
+                    P3: {cliente.condiciones?.P3}
+                  </span>
+                  {' - '}
+                  <span className="font-bold text-sm">
+                    P4: {cliente.condiciones?.P4}
+                  </span>
+                  {' - '}
+                  <span className="font-bold text-sm">
+                    P5: {cliente.condiciones?.P5}
+                  </span>
+                  {' - '}
+                  <span className="font-bold text-sm">
+                    P6: {cliente.condiciones?.P6}
+                  </span>
+                </div>
               </div>
             </article>
           </>
         )}
-        {tratatedInfo && <></>}
-        {tablaTotal && <></>}
       </>
       {resumenMesTablaTotal && isTermined && (
         <div>

@@ -170,7 +170,7 @@ const CrearTablaResumenMes = (props) => {
               </th>
               <th
                 scope="col"
-                className="text-center text-black  dark:border-gray-700 min-w-8"
+                className="text-center text-black  dark:border-gray-700 min-w-8 print:hidden"
               ></th>
             </tr>
           </thead>
@@ -222,7 +222,7 @@ const CrearTablaResumenMes = (props) => {
                 >
                   {formatearNumero(getCellValue(fila, campo, 6))}
                 </td>
-                <td className="px-1 py-1 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                <td className="px-1 py-1 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 print:hidden">
                   <button
                     id={fila.mes}
                     className="abrirModal rounded bg-gray-100 p-1 hover:bg-gray-400 transition ease-in duration-300"
