@@ -68,7 +68,7 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
   const handleClick = (e) => {
     setSelectedCup(e.target.value)
     //console.log('value', e.target.value)
-    //console.log('Cleinte', cliente)
+    console.log('Cleinte', cliente)
     //console.log('CUP Seleccionada', selectedCup)
   }
 
@@ -745,15 +745,6 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
                   CUPS: <span className="font-bold">{cliente.cup}</span>
                 </p>
                 <p>Tarifa: {cliente.tarifa}</p>
-                <p>
-                  Condiciones: <br />
-                  <span className="font-bold text-sm">
-                    P1: {cliente.condiciones.P1} - P2: {cliente.condiciones.P2}{' '}
-                    - P3: {cliente.condiciones.P3} - P4:{' '}
-                    {cliente.condiciones.P4} - P5: {cliente.condiciones.P5} -
-                    P6: {cliente.condiciones.P6}
-                  </span>
-                </p>
               </div>
             </article>
           </>
