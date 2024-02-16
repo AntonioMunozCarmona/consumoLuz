@@ -115,7 +115,7 @@ const CrearTablaResumenMes = (props) => {
   let caption = crearCaption(campo)
   return (
     <>
-      <div className="relative w-10/12 flex overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="relative w-11/12 flex overflow-x-auto shadow-md sm:rounded-lg">
         <table className="mx-auto w-full text-sm text-center rtl:text-right text-gray-700 dark:text-gray-600">
           <caption className="text-2xl m-8 text-center">
             Resumen mensual {caption}
@@ -123,7 +123,7 @@ const CrearTablaResumenMes = (props) => {
 
           <thead className="text-l text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr className="px-1 py-2 border-b dark:border-gray-700">
-              <th className="min-w-8" scope="col">
+              <th className="min-w-8 w-2" scope="col">
                 Mes
               </th>
               <th
@@ -222,10 +222,10 @@ const CrearTablaResumenMes = (props) => {
                 >
                   {formatearNumero(getCellValue(fila, campo, 6))}
                 </td>
-                <td className="px-1 py-1 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 print:hidden">
+                <td className="text-center text-white odd:bg-opacity-50 print:hidden">
                   <button
                     id={fila.mes}
-                    className="abrirModal rounded bg-gray-100 p-1 hover:bg-gray-400 transition ease-in duration-300"
+                    className="abrirModal rounded bg-gray-400 p-0.5 hover:bg-gray-700 transition ease-in duration-300"
                     onClick={(e) => handleClick(e, fila.mes)}
                   >
                     Revisar mes

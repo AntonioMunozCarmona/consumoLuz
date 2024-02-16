@@ -68,7 +68,7 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
   const handleClick = (e) => {
     setSelectedCup(e.target.value)
     //console.log('value', e.target.value)
-    console.log('Cleinte', cliente)
+    //console.log('Cleinte', cliente)
     //console.log('CUP Seleccionada', selectedCup)
   }
 
@@ -695,7 +695,7 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
   }, [resumenMesTablaTotal])
 
   return (
-    <div>
+    <div className="m-4 print:-scale-60">
       <div className="print:hidden">
         <label
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -789,7 +789,7 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
               campo={'Activa'}
             />
           </div>
-          <div className="reactiva flex fle-row justify-around gap-20">
+          <div className="reactiva flex fle-row justify-around gap-10">
             <CrearTablaResumenMes
               data={resumenMesTablaTotal}
               campo={'Reactiva'}
