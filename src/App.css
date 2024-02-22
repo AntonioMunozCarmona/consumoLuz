@@ -2,3 +2,11 @@ body {
   font-family: 'Roboto', sans-serif;
   background-color: lightgray;
 }
+
+@media print {
+  body {
+    background-color: white;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

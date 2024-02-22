@@ -783,28 +783,36 @@ const EntradaFileComponent = ({ datos, onDatosRecibidos }) => {
       </>
       {resumenMesTablaTotal && isTermined && (
         <div>
-          <div className="activa flex fle-row justify-center">
+          <div className="activa flex flex-row justify-center">
             <CrearTablaResumenMes
               data={resumenMesTablaTotal}
+              data2={tablaTotal}
               campo={'Activa'}
             />
           </div>
-          <div className="reactiva flex fle-row justify-around gap-10">
+          <div className="reactiva flex flex-row justify-around gap-10">
             <CrearTablaResumenMes
               data={resumenMesTablaTotal}
+              data2={tablaTotal}
               campo={'Reactiva'}
             />
             <CrearTablaResumenMes
               data={resumenMesTablaTotal}
+              data2={tablaTotal}
               campo={'ReactivaFact'}
             />
           </div>
           <div className="potencia flex flex-row justify-around gap-20">
             <CrearTablaResumenMes
               data={resumenMesTablaTotal}
+              data2={tablaTotal}
               campo={'Potencia'}
             />
-            <CrearTablaResumenMes data={excesoPot} campo={'PotenciaFact'} />
+            <CrearTablaResumenMes
+              data={excesoPot}
+              data2={tablaTotal}
+              campo={'PotenciaFact'}
+            />
           </div>
         </div>
       )}

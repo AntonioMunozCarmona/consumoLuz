@@ -22,34 +22,76 @@ function formatearNumero(numero) {
   return new Intl.NumberFormat('es-CL').format(numero)
 }
 
-const handleClick = (ev, mes) => {
-  ev.preventDefault()
-  //console.log('EV', ev, 'mes ', mes)
+const handleClick = (ev, mes, campo) => {
+  //   ev.preventDefault()
+  //   const openEls = document.querySelectorAll('[data-open]')
+  //   const isVisible = 'is-visible'
+  //   for (const el of openEls) {
+  //     el.addEventListener('click', function () {
+  //       const modalId = this.dataset.open
+  //       document.getElementById(modalId).classList.add(isVisible)
+  //     })
+  //   }
+  //   // Cerrar haciendo click en el X del modal
+  //   const closeEls = document.querySelectorAll('[data-close]')
+  //   for (const el of closeEls) {
+  //     el.addEventListener('click', function () {
+  //       this.parentElement.parentElement.parentElement.classList.remove(isVisible)
+  //     })
+  //   }
+  //   // Hciendo click en cualquier parte fuera del modal
+  //   document.addEventListener('click', (e) => {
+  //     if (e.target == document.querySelector('.modal.is-visible')) {
+  //       document.querySelector('.modal.is-visible').classList.remove(isVisible)
+  //     }
+  //   })
+  //   // Por ultimo presionando la tecla 'Esc'
+  //   document.addEventListener('keyup', (e) => {
+  //     if (e.key == 'Escape' && document.querySelector('.modal.is-visible')) {
+  //       document.querySelector('.modal.is-visible').classList.remove(isVisible)
+  //     }
+  //   })
   // Ventana modal
-  var modal = document.getElementById('ventanaModal')
+  console.log('EV', ev, 'mes ', mes, 'Campo:', campo)
+  ev.preventDefault()
+  let modal = document.getElementById(`modal-${campo}`)
+  let modalContainer = document.getElementById(`modalContainer-${campo}`)
+  let closeModal = document.getElementById('closeModal')
+  modal.classList.toggle('hidden')
+  modalContainer.classList.remove('hidden')
+  modalContainer.classList.remove('opacity-0')
 
-  // Botón que abre el modal
-  var boton = document.getElementById(mes)
+  modalContainer.classList.remove('w-1')
+  modalContainer.classList.add('w-1/2')
 
-  // Hace referencia al elemento <span> que tiene la X que cierra la ventana
-  var span = document.getElementsByClassName('cerrar')[0]
-
-  // Cuando el usuario hace click en el botón, se abre la ventana
-  boton.addEventListener('click', function () {
-    //modal.classList.toggle(`hidden`)
+  modalContainer.classList.toggle('visible')
+  closeModal.addEventListener('click', () => {
+    modal.classList.add('hidden')
   })
 
-  // Si el usuario hace click en la x, la ventana se cierra
-  span.addEventListener('click', function () {
-    modal.style.display = 'none'
+  modal.addEventListener('click', () => {
+    modal.classList.add('hidden')
   })
-
-  // Si el usuario hace click fuera de la ventana, se cierra.
-  window.addEventListener('click', function (event) {
-    if (event.target == modal) {
-      modal.style.display = 'none'
-    }
-  })
+  //   // console.log('MOdal', modal)
+  //   // // Botón que abre el modal
+  //   // let boton = document.getElementById(mes)
+  //   // console.log('Boton', boton)
+  //   // // Hace referencia al elemento <span> que tiene la X que cierra la ventana
+  //   // let span = document.getElementsByClassName('cerrar')[0]
+  //   // // Cuando el usuario hace click en el botón, se abre la ventana
+  //   // boton.addEventListener('click', function () {
+  //   //   modal.style.display = `block`
+  //   // })
+  //   // // Si el usuario hace click en la x, la ventana se cierra
+  //   // span.addEventListener('click', function () {
+  //   //   modal.style.display = 'none'
+  //   // })
+  //   // // Si el usuario hace click fuera de la ventana, se cierra.
+  //   // window.addEventListener('click', function (event) {
+  //   //   if (event.target == modal) {
+  //   //     modal.style.display = 'none'
+  //   //   }
+  //   // })
 }
 
 function formatearMes(mes) {
@@ -110,8 +152,8 @@ function getCellValue(fila, fieldName, indice) {
   }
 }
 const CrearTablaResumenMes = (props) => {
-  const { data, campo } = props
-  //console.log(data)
+  const { data, data2, campo } = props
+  console.log(data2)
   let caption = crearCaption(campo)
   return (
     <>
@@ -225,8 +267,8 @@ const CrearTablaResumenMes = (props) => {
                 <td className="text-center text-white odd:bg-opacity-50 print:hidden">
                   <button
                     id={fila.mes}
-                    className="abrirModal rounded bg-gray-400 p-0.5 hover:bg-gray-700 transition ease-in duration-300"
-                    onClick={(e) => handleClick(e, fila.mes)}
+                    className="open-modal rounded bg-gray-400 p-0.5 hover:bg-gray-700 transition ease-in duration-300"
+                    onClick={(e) => handleClick(e, fila.mes, campo)}
                   >
                     Revisar mes
                   </button>
@@ -236,24 +278,52 @@ const CrearTablaResumenMes = (props) => {
           </tbody>
         </table>
       </div>
-      {/* <!-- Ventana modal, por defecto no visiblel --> */}
+      {/* Ventana modal, por defecto no visiblel -->  */}
       <div
-        id="ventanaModal"
-        className="modal hidden fixed z-1 pt-80 left-0 top-0 w-full h-full overflow-auto bg-black opacity-50 "
+        id={`modal-${campo}`}
+        className="modal-container absolute overflow-y-auto top-0 left-0 hidden flex justify-center items-center h-full w-full z-10 min-h-max bg-[rgba(79,79,79,.7)]"
       >
-        <div className="modal-content relative bg-white m-auto p-5 w-3/5 animate-[animarsuperior_0.5s_ease-in-out]">
-          <span className="cerrar text-black float-right text-3xl font-bold hover:text-black hover:decoration-0 cursor-pointer">
-            &times;
-          </span>
-          <h2>Resumen de </h2>
-          <p>Esto es el texto de la ventana</p>
+        <div
+          id={`modalContainer-${campo}`}
+          className="modal-content relative p-2.5 rounded-md bg-white text-center z-100 w-1 flex flex-row opacity-0 transition-all animate-jump-in animate-ease-linear animate-duration-3000"
+        >
+          <header className="modal-header text-lg w-full h-6 absolute">
+            <button
+              type="button"
+              id="closeModal"
+              className="text-gray-400 bg-transparent hover:bg-gray-200 absolute right-0 top-0 mr-4 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
+            >
+              <svg
+                className="w-3 h-3 m-auto"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 14"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                />
+              </svg>
+              <span className="sr-only">Close modal</span>
+            </button>
+          </header>
+          <section className="modal-section mt-6">
+            <h2>Resumen de </h2>
+            <p>Esto es el texto de la ventana</p>
+          </section>
+          <footer className="modal-footer"></footer>
         </div>
       </div>
     </>
   )
 }
+// https://www.youtube.com/watch?v=DKK7i7NzizA
 CrearTablaResumenMes.propTypes = {
   data: PropTypes.array,
+  data2: PropTypes.array,
   campo: PropTypes.string,
 }
 export default CrearTablaResumenMes
