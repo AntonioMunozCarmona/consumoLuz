@@ -153,7 +153,8 @@ function getCellValue(fila, fieldName, indice) {
 }
 const CrearTablaResumenMes = (props) => {
   const { data, data2, campo } = props
-  console.log(data2)
+  if (!data || !data2 || !campo) return
+  //console.log(data2)
   let caption = crearCaption(campo)
   return (
     <>

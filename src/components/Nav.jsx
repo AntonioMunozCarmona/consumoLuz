@@ -23,7 +23,7 @@ function Nav() {
                     to="/"
                     className=" hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    LA Empresa
+                    La Empresa
                   </Link>
 
                   <Link
@@ -38,6 +38,20 @@ function Nav() {
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     Empresa
+                  </Link>
+
+                  <Link
+                    to="/fenosa"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Fenosa - Resumen
+                  </Link>
+
+                  <Link
+                    to="/fenosaAnalisis"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Fenosa - Análisis
                   </Link>
 
                   <Link
@@ -134,6 +148,20 @@ function Nav() {
                   className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >
                   Empresa
+                </Link>
+
+                <Link
+                  to="/fenosa"
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Fenosa - Resumen
+                </Link>
+
+                <Link
+                  to="/fenosaAnalisis"
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Fenosa - Análisis
                 </Link>
 
                 <Link
