@@ -52,7 +52,7 @@ const handleClick = (ev, mes, campo) => {
   //     }
   //   })
   // Ventana modal
-  console.log('EV', ev, 'mes ', mes, 'Campo:', campo)
+  //console.log('EV', ev, 'mes ', mes, 'Campo:', campo)
   ev.preventDefault()
   let modal = document.getElementById(`modal-${campo}`)
   let modalContainer = document.getElementById(`modalContainer-${campo}`)
@@ -154,12 +154,13 @@ function getCellValue(fila, fieldName, indice) {
 const CrearTablaResumenMes = (props) => {
   const { data, data2, campo } = props
   if (!data || !data2 || !campo) return
-  //console.log(data2)
+  //console.log('Data:', data)
+  //console.log('Data 2 :', data2)
   let caption = crearCaption(campo)
   return (
     <>
       <div className="relative w-11/12 flex overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="mx-auto w-full text-sm text-center rtl:text-right text-gray-700 dark:text-gray-600">
+        <table className="mx-auto w-full text-sm text-center rtl:text-right text-gray-700 dark:text-gray-600 select-all">
           <caption className="text-2xl m-8 text-center">
             Resumen mensual {caption}
           </caption>
@@ -171,42 +172,42 @@ const CrearTablaResumenMes = (props) => {
               </th>
               <th
                 scope="col"
-                className="text-center text-white min-w-8"
+                className="text-center text-white min-w-6"
                 style={{ backgroundColor: colores.P1 }}
               >
                 P1
               </th>
               <th
                 scope="col"
-                className="px-1 py-2 text-center text-black min-w-8"
+                className="px-1 py-2 text-center text-black min-w-6"
                 style={{ backgroundColor: colores.P2 }}
               >
                 P2
               </th>
               <th
                 scope="col"
-                className="text-center text-black min-w-8"
+                className="text-center text-black min-w-6"
                 style={{ backgroundColor: colores.P3 }}
               >
                 P3
               </th>
               <th
                 scope="col"
-                className="text-center text-white min-w-8"
+                className="text-center text-white min-w-6"
                 style={{ backgroundColor: colores.P4 }}
               >
                 P4
               </th>
               <th
                 scope="col"
-                className="text-center text-white min-w-8"
+                className="text-center text-white min-w-6"
                 style={{ backgroundColor: colores.P5 }}
               >
                 P5
               </th>
               <th
                 scope="col"
-                className="text-center text-black min-w-8"
+                className="text-center text-black min-w-6"
                 style={{ backgroundColor: colores.P6 }}
               >
                 P6
@@ -313,7 +314,10 @@ const CrearTablaResumenMes = (props) => {
           </header>
           <section className="modal-section mt-6">
             <h2>Resumen de </h2>
-            <p>Esto es el texto de la ventana</p>
+            <p>Esto será el resumen mensual del cliente</p>
+            <p>Energía Activa por Periodo</p>
+            <p>Penalización Energía Reactiva por Periodo</p>
+            <p>Penalización Exceso de potencia por Periodo</p>
           </section>
           <footer className="modal-footer"></footer>
         </div>

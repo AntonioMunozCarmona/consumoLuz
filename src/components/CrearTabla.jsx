@@ -55,7 +55,7 @@ const CrearTabla = ({ data, campo }) => {
   return (
     <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100">
+        <table className="w-full text-sm text-left rtl:text-right text-blue-100 dark:text-blue-100 select-all">
           <caption className="text-2xl m-8 text-center text-blue-500">
             {caption}
           </caption>

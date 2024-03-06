@@ -198,7 +198,7 @@ const FileInputComponent = ({ onDatosRecibidos }) => {
     </div>
   )
 }
-FileInputComponent.propTypes = {
+FileInputComponent.PropTypes = {
   onDatosRecibidos: PropTypes.func,
 }
 

@@ -41,7 +41,7 @@ const CrearTablaResumenDia = (props) => {
   const { data, campo } = props
   let caption = crearCaption(campo)
   //console.log('caption', caption)
-
+  //console.log('En resumen dia', data)
   let resumen = []
   let acc = {}
   const arrayResumen = data.map((obj) => {
@@ -69,11 +69,12 @@ const CrearTablaResumenDia = (props) => {
 
     for (let i = 0; i <= 23; i++) {
       const periodo = obj[`_${i.toString().padStart(2, '0')}`].Periodo
-      const activa = parseInt(obj[`_${i.toString().padStart(2, '0')}`].Activa)
-      const reactiva = parseInt(
-        obj[`_${i.toString().padStart(2, '0')}`].Reactiva
-      )
+      const activaC = obj[`_${i.toString().padStart(2, '0')}`].Activa
+      const reactivaC = obj[`_${i.toString().padStart(2, '0')}`].Reactiva
       //const potencia = obj[`_${i.toString().padStart(2, '0')}`].Potencia
+
+      const activa = parseFloat(activaC.replace(',', '.'))
+      const reactiva = parseFloat(reactivaC.replace(',', '.'))
 
       if (periodo === 'P1') {
         acc[`Activa-1`] += activa

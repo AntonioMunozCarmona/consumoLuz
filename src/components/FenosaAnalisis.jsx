@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import FenosaCalendarInputComponent from './FenosaCalendarInputComponent'
 //import FileInputComponent from './FileInputComponent.jsx'
-//import TratarInfo from './TratarInfo.jsx'
+import FenosaTratarInfo from './FenosaTratarInfo.jsx'
 
 function FenosaAnalisis() {
   const [datos, setDatos] = useState([])
@@ -11,8 +12,11 @@ function FenosaAnalisis() {
 
   return (
     <>
-      {/* <FileInputComponent onDatosRecibidos={manejarDatos} />
-      <TratarInfo data={datos} /> */}
+      <FenosaCalendarInputComponent
+        data={datos}
+        onDatosRecibidos={manejarDatos}
+      />
+      <FenosaTratarInfo data={datos} />
     </>
   )
 }

@@ -13,23 +13,32 @@ function convertirFecha(fechaString) {
   return new Date(+anio, mes - 1, +dia)
 }
 
+function getWeekDay(date) {
+  let days = ['D', 'L', 'M', 'X', 'J', 'V', 'S']
+  const [day, month, year] = date.split('/')
+  date = new Date(year, month - 1, day)
+
+  return days[date.getDay()]
+}
+
 function buscarP(fechaString, hora) {
-  let f = convertirFecha(fechaString).getDay()
-  //console.log('La fecha buascada', fechaString, 'Dia sema', f)
-  if (f === 0 || f === 6) return 'P6' // Si el día de la semana es domingo o sabado es P6
+  //console.log('La fecha buascada', fechaString)
+  let diasem = getWeekDay(fechaString)
   let buscar = endesaFiestas.some((fiesta) => fiesta === fechaString)
   if (buscar) {
+    // Si es festivo de las electricas
+    return 'P6'
+  } else if (diasem === 'S' || diasem === 'D') {
     return 'P6'
   } else {
     let [dia, mes, anio] = fechaString.split('/')
     //  console.log('La  buascada', endesaCalendario[+mes - 1][+hora])
-
     return Object.getOwnPropertyDescriptor(endesaCalendario[+mes - 1][0], +hora)
       .value
   }
 }
 
-const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
+const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
   const [fileContent, setFileContent] = useState(null)
   const [file1Content, setFile1Content] = useState(null)
   const [selectedCup, setSelectedCup] = useState(null)
@@ -40,6 +49,8 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
   const [resumenMesTablaTotal, setResumenMesTablaTotal] = useState(null)
   const [isTermined, setIsTermined] = useState(false)
   const [excesoPot, setExcesoPot] = useState(null)
+  const [startDate, setStartDate] = useState(null)
+  const [endDate, setEndDate] = useState(null)
 
   const fileInputRef = useRef()
   const file1InputRef = useRef()
@@ -56,29 +67,6 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
       let lines = reader.result.split('\n').slice(1) // Omitir la primera línea
       lines = lines.filter((line) => line.trim() !== '') // Eliminar líneas vacías
       const options = lines.map((line) => line.replace(/\r/, '').split(';'))
-      // Dividir la fecha hora en dos campos
-      //   options.map((array) => {
-      //     let [fecha, tiempo] = array[1].split(' ')
-      //     const [hora] = tiempo.split(':')
-      //     if (hora === '00') {
-      //       // Hace que la hora 00 sea del dia anterior
-      //       let date = fecha.split('/')
-      //       let dia = new Date(date[2], date[1] - 1, date[0], 0, 0, 0, 0)
-      //       dia = new Date(dia.getTime() - 24 * 60 * 60 * 1000)
-      //       let d = dia.getDate()
-      //       let m = dia.getMonth() + 1
-
-      //       if (d < 10) {
-      //         d = '0' + d
-      //       }
-      //       if (m < 10) {
-      //         m = '0' + m
-      //       }
-      //       fecha = d + '/' + m + '/' + dia.getFullYear()
-      //       //console.log('FEcha', fecha)
-      //     }
-      //     array.splice(1, 1, fecha, hora)
-      //   })
 
       setFileContent(options)
       //console.log('Options', options)
@@ -100,29 +88,6 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
       let lines = reader.result.split('\n').slice(1) // Omitir la primera línea
       lines = lines.filter((line) => line.trim() !== '') // Eliminar líneas vacías
       const options = lines.map((line) => line.replace(/\r/, '').split(';'))
-      // Dividir la fecha hora en dos campos
-      //   options.map((array) => {
-      //     let [fecha, tiempo] = array[1].split(' ')
-      //     const [hora] = tiempo.split(':')
-      //     if (hora === '00') {
-      //       // Hace que la hora 00 sea del dia anterior
-      //       let date = fecha.split('/')
-      //       let dia = new Date(date[2], date[1] - 1, date[0], 0, 0, 0, 0)
-      //       dia = new Date(dia.getTime() - 24 * 60 * 60 * 1000)
-      //       let d = dia.getDate()
-      //       let m = dia.getMonth() + 1
-
-      //       if (d < 10) {
-      //         d = '0' + d
-      //       }
-      //       if (m < 10) {
-      //         m = '0' + m
-      //       }
-      //       fecha = d + '/' + m + '/' + dia.getFullYear()
-      //       //console.log('FEcha', fecha)
-      //     }
-      //     array.splice(1, 1, fecha, hora)
-      //   })
 
       setFile1Content(options)
       //console.log('file 1', file1Content)
@@ -149,18 +114,48 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
     fileContent.forEach((arr) => cupsSet.add(arr[0]))
     return Array.from(cupsSet)
   }
-  useEffect(() => {
-    const encuentraEmpresa = (cup) => {
-      if (!fileContent || !selectedCup) return []
-      const empresaBuscada = empresas.find((empresa) => empresa.cup === cup)
-      return empresaBuscada !== undefined
-        ? empresaBuscada
-        : {
-            identificador: 'CUP NO ENCONTRADA',
-          }
-    }
-    setCliente(encuentraEmpresa(selectedCup))
-  }, [fileContent, selectedCup])
+
+  const handleCupSelect = (event) => {
+    setSelectedCup(event.target.value)
+    setStartDate(null) // Restablecer la fecha de inicio
+    setEndDate(null) // Restablecer la fecha final
+  }
+
+  const handleStartDateSelect = (event) => {
+    const date = event.target.value
+    setStartDate(date)
+    //console.log(`Fecha de inicio seleccionada: ${date}`)
+  }
+
+  const handleEndDateSelect = (event) => {
+    const date = event.target.value
+    setEndDate(date)
+    //console.log(`Fecha final seleccionada: ${date}`)
+  }
+
+  const getDateRange = () => {
+    if (!fileContent || !selectedCup || file1Content) return [null, null]
+
+    const dates = fileContent
+      .filter((arr) => {
+        const [day, month, year] = arr[1].split('/')
+        const date = new Date(year, month - 1, day)
+        return !isNaN(date.getTime()) && arr[0] === selectedCup // Comprobar si la fecha es válida
+      })
+      .map((arr) => {
+        const [day, month, year] = arr[1].split('/')
+        return new Date(year, month - 1, day)
+      })
+
+    const minDate = new Date(Math.min.apply(null, dates))
+    const maxDate = new Date(Math.max.apply(null, dates))
+    maxDate.setDate(maxDate.getDate() + 1)
+    // console.log('MIn', minDate, 'max', maxDate)
+    return [
+      minDate.toISOString().split('T')[0],
+      maxDate.toISOString().split('T')[0],
+    ]
+  }
 
   useEffect(() => {
     const filtrarCup = () => {
@@ -337,7 +332,7 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
         //console.log('fato', curr)
 
         periodo = buscarP(fecha, hour)
-        //console.log('Fecha: ', fecha, periodo)
+
         if (periodo === 'P1') {
           color = colores.P1
         } else if (periodo === 'P2') {
@@ -451,11 +446,11 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
           miDia = {}
         }
 
-        //console.log('Mis datos1', misDatos)
+        // console.log('Mis datos', misDatos)
         setTratatedInfo(misDatos)
         return acc
       }, [])
-      //console.log('Mis datos2:', misDatos)
+      //console.log('Mis datos:', misDatos)
       //Comprobar que existen todas las fechas
       let fechas = []
       misDatos.map((dato) => fechas.push(dato.date))
@@ -684,280 +679,35 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
   }, [datosFiltrados, file1Content, fileContent, selectedCup])
 
   useEffect(() => {
-    let resumen = []
-    let acc = {}
-    const tablaTotal = () => {
-      if (!tratatedInfo) return []
-      //console.log('Tratated info', tratatedInfo)
-      const arrayResumen = tratatedInfo.map((obj) => {
-        acc = {
-          date: obj.date,
-          'Activa-1': 0,
-          'Activa-2': 0,
-          'Activa-3': 0,
-          'Activa-4': 0,
-          'Activa-5': 0,
-          'Activa-6': 0,
-          'Reactiva-1': 0,
-          'Reactiva-2': 0,
-          'Reactiva-3': 0,
-          'Reactiva-4': 0,
-          'Reactiva-5': 0,
-          'Reactiva-6': 0,
-          'Potencia-1': 0,
-          'Potencia-2': 0,
-          'Potencia-3': 0,
-          'Potencia-4': 0,
-          'Potencia-5': 0,
-          'Potencia-6': 0,
-        }
-        //  console.log('El obj', obj)
+    const getFilteredData = () => {
+      if (!selectedCup || !startDate || !endDate || !tratatedInfo) return []
 
-        for (let i = 0; i <= 23; i++) {
-          const periodo = obj[`_${i.toString().padStart(2, '0')}`].Periodo
-          let activa = obj[`_${i.toString().padStart(2, '0')}`].Activa
-          let reactiva = obj[`_${i.toString().padStart(2, '0')}`].Reactiva
-          //const activa = activaC.split(',').join('.')
-          //const reactiva = reactivaC.split(',').join('.')
-          //activa = +activa.replace(',', '.')
-          //reactiva = +reactiva.replace(',', '.')
-          //const activa = Number(activaC.split(',').join('.'))
-          //const reactiva = Number(reactivaC.split(',').join('.'))
-          // console.log(
-          //   'Periodo ',
-          //   periodo,
-          //   'Activa ',
-          //   activa,
-          //   typeof activa,
-          //   'Reactiva: ',
-          //   reactiva
-          // )
-          //const potencia = obj[`_${i.toString().padStart(2, '0')}`].Potencia
+      const [startYear, startMonth, startDay] = startDate.split('-')
+      const [endYear, endMonth, endDay] = endDate.split('-')
 
-          if (periodo === 'P1') {
-            //console.log('Es P1', activa)
-            acc[`Activa-1`] += +activa.replace(',', '.')
-            acc[`Reactiva-1`] += +reactiva.replace(',', '.')
-            acc[`Potencia-1`] = Math.max(acc[`Potencia-1`], parseFloat(activa))
-          }
+      const startDateObj = new Date(
+        Date.UTC(startYear, startMonth - 1, startDay)
+      )
+      const endDateObj = new Date(Date.UTC(endYear, endMonth - 1, endDay))
 
-          if (periodo === 'P2') {
-            acc[`Activa-2`] += +activa.replace(',', '.')
-            acc[`Reactiva-2`] += +reactiva.replace(',', '.')
-            acc[`Potencia-2`] = Math.max(acc[`Potencia-2`], parseFloat(activa))
-          }
+      return tratatedInfo.filter((obj) => {
+        const [day, month, year] = obj.date.split('/')
+        const date = new Date(Date.UTC(year, month - 1, day, 0, 0, 0, 0))
 
-          if (periodo === 'P3') {
-            //vigia.push(+activa.replace(',', '.'))
-            acc[`Activa-3`] += +activa.replace(',', '.')
-            acc[`Reactiva-3`] += +reactiva.replace(',', '.')
-            acc[`Potencia-3`] = Math.max(acc[`Potencia-3`], parseFloat(activa))
-          }
-
-          if (periodo === 'P4') {
-            acc[`Activa-4`] += +activa.replace(',', '.')
-            acc[`Reactiva-4`] += +reactiva.replace(',', '.')
-            acc[`Potencia-4`] = Math.max(acc[`Potencia-4`], parseFloat(activa))
-          }
-
-          if (periodo === 'P5') {
-            acc[`Activa-5`] += +activa.replace(',', '.')
-            acc[`Reactiva-5`] += +reactiva.replace(',', '.')
-            acc[`Potencia-5`] = Math.max(acc[`Potencia-5`], parseFloat(activa))
-          }
-
-          if (periodo === 'P6') {
-            acc[`Activa-6`] += +activa.replace(',', '.')
-            acc[`Reactiva-6`] += +reactiva.replace(',', '.')
-            acc[`Potencia-6`] = Math.max(acc[`Potencia-6`], parseFloat(activa))
-          }
-        }
-        //console.log('Datos ', acc.date, '  ', vigia)
-        // console.log('acc', acc)
-
-        resumen.push(acc)
-        return acc
-      })
-      return arrayResumen
-    }
-    let pp = tablaTotal()
-    //console.log('Datos por dia: tabla total', pp)
-    //Genera un array con objetos por día, con el resumen por día de activa-1, activa-2...activa-6, reactiva-1, reactiva-2,...,reactiva-6... potencia-1-6
-    setTablaTotal(pp)
-  }, [datosFiltrados, selectedCup, tratatedInfo])
-
-  useEffect(() => {
-    const resumenMesTablaTotal = () => {
-      if (!tablaTotal || !tratatedInfo) return []
-
-      function buscar_item_por_mes(mes) {
-        return resumenMes.find(function (item) {
-          return item.mes === mes
-        })
-      }
-
-      function redondear(num, decimales = 3) {
-        var signo = num >= 0 ? 1 : -1
-        num = num * signo
-        if (decimales === 0)
-          //con 0 decimales
-          return signo * Math.round(num)
-        // round(x * 10 ^ decimales)
-        num = num.toString().split('e')
-        num = Math.round(
-          +(num[0] + 'e' + (num[1] ? +num[1] + decimales : decimales))
-        )
-        // x * 10 ^ (-decimales)
-        num = num.toString().split('e')
         return (
-          signo * (num[0] + 'e' + (num[1] ? +num[1] - decimales : -decimales))
+          obj.name === selectedCup && date >= startDateObj && date <= endDateObj
         )
-      }
-
-      let mes = ''
-      let anio = ''
-      let actual = ''
-      let i = ''
-      let resumenMes = []
-      let acc = {}
-      //console.log('tablaTotal', tablaTotal)
-      let vigia = []
-      tablaTotal.map((dia) => {
-        actual = convertirFecha(dia.date)
-        anio = actual.getFullYear()
-        mes = actual.getMonth() + 1
-        i = anio + '-' + mes.toString().padStart(2, '0')
-        //  console.log('Dia', dia)
-        let encontrado = buscar_item_por_mes(i)
-        //console.log('Encontrado', encontrado)
-        if (!encontrado) {
-          // Si no se encuentra se graba el objeto acc que hemos creado y se empieza uno nuevo
-          if (acc.mes !== undefined) {
-            acc = {}
-          }
-
-          // Crea un nuevo objeto con los datos del día
-          acc.mes = i
-          vigia.push(i)
-          vigia.push(redondear(dia['Activa-3']))
-          acc['Activa-1'] = dia['Activa-1']
-          acc['Activa-2'] = dia['Activa-2']
-          acc['Activa-3'] = dia['Activa-3']
-          acc['Activa-4'] = dia['Activa-4']
-          acc['Activa-5'] = dia['Activa-5']
-          acc['Activa-6'] = dia['Activa-6']
-          acc['Reactiva-1'] = dia['Reactiva-1']
-          acc['Reactiva-2'] = dia['Reactiva-2']
-          acc['Reactiva-3'] = dia['Reactiva-3']
-          acc['Reactiva-4'] = dia['Reactiva-4']
-          acc['Reactiva-5'] = dia['Reactiva-5']
-          acc['Reactiva-6'] = dia['Reactiva-6']
-          acc['Potencia-1'] = dia['Potencia-1']
-          acc['Potencia-2'] = dia['Potencia-2']
-          acc['Potencia-3'] = dia['Potencia-3']
-          acc['Potencia-4'] = dia['Potencia-4']
-          acc['Potencia-5'] = dia['Potencia-5']
-          acc['Potencia-6'] = dia['Potencia-6']
-
-          resumenMes.push(acc)
-        } else {
-          vigia.push(redondear(dia['Activa-3']))
-          encontrado['Activa-1'] += +dia['Activa-1']
-          encontrado['Activa-2'] += +dia['Activa-2']
-          encontrado['Activa-3'] += +dia['Activa-3']
-          encontrado['Activa-4'] += +dia['Activa-4']
-          encontrado['Activa-5'] += +dia['Activa-5']
-          encontrado['Activa-6'] += +dia['Activa-6']
-          encontrado['Reactiva-1'] += +dia['Reactiva-1']
-          encontrado['Reactiva-2'] += +dia['Reactiva-2']
-          encontrado['Reactiva-3'] += +dia['Reactiva-3']
-          encontrado['Reactiva-4'] += +dia['Reactiva-4']
-          encontrado['Reactiva-5'] += +dia['Reactiva-5']
-          encontrado['Reactiva-6'] += +dia['Reactiva-6']
-          encontrado['Potencia-1'] = Math.max(
-            encontrado[`Potencia-1`],
-            dia['Potencia-1']
-          )
-          encontrado['Potencia-2'] = Math.max(
-            encontrado['Potencia-2'],
-            dia['Potencia-2']
-          )
-          encontrado['Potencia-3'] = Math.max(
-            encontrado['Potencia-3'],
-            dia['Potencia-3']
-          )
-          encontrado['Potencia-4'] = Math.max(
-            encontrado['Potencia-4'],
-            dia['Potencia-4']
-          )
-          encontrado['Potencia-5'] = Math.max(
-            encontrado['Potencia-5'],
-            dia['Potencia-5']
-          )
-          encontrado['Potencia-6'] = Math.max(
-            encontrado['Potencia-6'],
-            dia['Potencia-6']
-          )
-        }
-
-        //  console.log('resumenmes', resumenMes)
       })
-
-      //console.log('Vigia', vigia)
-      return resumenMes
     }
-    let s = resumenMesTablaTotal()
-    //console.log('Resumen meS', s)
-    setResumenMesTablaTotal(s)
-  }, [tablaTotal, tratatedInfo])
 
-  useEffect(() => {
-    const isTermined = () => {
-      if (!resumenMesTablaTotal) return false
-      return true
+    if (startDate && endDate) {
+      const filteredData = getFilteredData()
+
+      onDatosRecibidos(filteredData)
     }
-    let s = isTermined()
-    setIsTermined(s)
-  }, [resumenMesTablaTotal, cliente])
+  }, [startDate, endDate, fileContent, selectedCup])
 
-  useEffect(() => {
-    //console.log('La tabla Inicial', resumenMesTablaTotal)
-
-    const isExceded = () => {
-      if (!resumenMesTablaTotal || !cliente) return false
-
-      let excesos = []
-      let copiaMes = {}
-      resumenMesTablaTotal.map((mes) => {
-        copiaMes = { ...mes }
-
-        copiaMes['Potencia-1'] > cliente.condiciones?.P1
-          ? copiaMes['Potencia-1']
-          : (copiaMes['Potencia-1'] = '')
-        copiaMes['Potencia-2'] > cliente.condiciones?.P2
-          ? copiaMes['Potencia-2']
-          : (copiaMes['Potencia-2'] = '')
-        copiaMes['Potencia-3'] > cliente.condiciones?.P3
-          ? copiaMes['Potencia-3']
-          : (copiaMes['Potencia-3'] = '')
-        copiaMes['Potencia-4'] > cliente.condiciones?.P4
-          ? copiaMes['Potencia-4']
-          : (copiaMes['Potencia-4'] = '')
-        copiaMes['Potencia-5'] > cliente.condiciones?.P5
-          ? copiaMes['Potencia-5']
-          : (copiaMes['Potencia-5'] = '')
-        copiaMes['Potencia-6'] > cliente.condiciones?.P6
-          ? copiaMes['Potencia-6']
-          : (copiaMes['Potencia-6'] = '')
-        excesos.push(copiaMes)
-      })
-      return excesos
-    }
-    let s = isExceded()
-    //console.log('LOS EXCESOS', s)
-    //console.log('La tabla', resumenMesTablaTotal)
-    setExcesoPot(s)
-  }, [resumenMesTablaTotal, cliente])
+  const [minDate, maxDate] = getDateRange()
 
   return (
     <div className="m-4 print:-scale-60">
@@ -1006,103 +756,38 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
               {cup}
             </button>
           ))}
-      </div>
-      <>
-        {selectedCup && datosFiltrados && <></>}
-        {tratatedInfo && <></>}
-        {tablaTotal && (
-          <>
-            <h2 className="text-center font-bold text-lg w-100">
-              Información del cliente
-            </h2>
-            <article className="flex flex-row gap-2 justify-between mx-3">
-              <div className="facturacion flex flex-col w-6/10 text-sm">
-                <p>Titular: {cliente.titular}</p>
-                <p>NIF: {cliente.cif}</p>
-                <p>Dirección: {cliente.calle}</p>
-                <p>Provincia: {cliente.provincia}</p>
-              </div>
-              <div className="w-4/10">
-                <p>
-                  Identificador:{' '}
-                  <span className="font-bold">{cliente.identificador}</span>
-                </p>
-                <p>
-                  CUPS: <span className="font-bold">{cliente.cup}</span>
-                </p>
-                <p>Tarifa: {cliente.tarifa}</p>
-                <div>
-                  Condiciones: <br />
-                  <span className="font-bold text-sm">
-                    P1: {cliente.condiciones?.P1}
-                  </span>
-                  {' - '}
-                  <span className="font-bold text-sm">
-                    P2: {cliente.condiciones?.P2}
-                  </span>
-                  {' - '}
-                  <span className="font-bold text-sm">
-                    P3: {cliente.condiciones?.P3}
-                  </span>
-                  {' - '}
-                  <span className="font-bold text-sm">
-                    P4: {cliente.condiciones?.P4}
-                  </span>
-                  {' - '}
-                  <span className="font-bold text-sm">
-                    P5: {cliente.condiciones?.P5}
-                  </span>
-                  {' - '}
-                  <span className="font-bold text-sm">
-                    P6: {cliente.condiciones?.P6}
-                  </span>
-                </div>
-              </div>
-            </article>
-          </>
+        {selectedCup && datosFiltrados && (
+          <div className="flex flex-col  sm:flex-row print:hidden">
+            <label className="m-2">Fecha de inicio:</label>
+            <input
+              type="date"
+              className="inputdata m-2"
+              min={minDate}
+              max={maxDate}
+              value={startDate || maxDate}
+              onChange={handleStartDateSelect}
+            />
+            {startDate && (
+              <>
+                <label className="m-2 ml-5">Fecha final:</label>
+                <input
+                  type="date"
+                  className="inputdata m-2"
+                  min={minDate}
+                  max={maxDate}
+                  value={endDate || startDate}
+                  onChange={handleEndDateSelect}
+                />
+              </>
+            )}
+            {tratatedInfo && <></>}
+          </div>
         )}
-      </>
-      {resumenMesTablaTotal && isTermined && (
-        <div>
-          <div className="activa flex flex-row justify-center">
-            <CrearTablaResumenMes
-              data={resumenMesTablaTotal}
-              data2={tablaTotal}
-              campo={'Activa'}
-            />
-          </div>
-          <div className="reactiva flex flex-row justify-around gap-10">
-            <CrearTablaResumenMes
-              data={resumenMesTablaTotal}
-              data2={tablaTotal}
-              campo={'Reactiva'}
-            />
-            <CrearTablaResumenMes
-              data={resumenMesTablaTotal}
-              data2={tablaTotal}
-              campo={'ReactivaFact'}
-            />
-          </div>
-          <div className="potencia flex flex-row justify-around gap-20">
-            <CrearTablaResumenMes
-              data={resumenMesTablaTotal}
-              data2={tablaTotal}
-              campo={'Potencia'}
-            />
-            <CrearTablaResumenMes
-              data={excesoPot}
-              data2={tablaTotal}
-              campo={'PotenciaFact'}
-            />
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   )
 }
-FenosaFileComponent.propTypes = {
-  datos: PropTypes.array,
-  onDatosRecibidos: PropTypes.func,
-}
 
-export default FenosaFileComponent
+FenosaCalendarInputComponent.propTypes = {}
+
+export default FenosaCalendarInputComponent

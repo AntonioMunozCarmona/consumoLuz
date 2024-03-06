@@ -12,11 +12,12 @@ const CrearTablaResumen = (props) => {
     (acc, obj) => {
       for (let i = 0; i <= 23; i++) {
         const periodo = obj[`_${i.toString().padStart(2, '0')}`].Periodo
-        const activa = parseInt(obj[`_${i.toString().padStart(2, '0')}`].Activa)
-        const reactiva = parseInt(
-          obj[`_${i.toString().padStart(2, '0')}`].Reactiva
-        )
+        const activaC = obj[`_${i.toString().padStart(2, '0')}`].Activa
+        const reactivaC = obj[`_${i.toString().padStart(2, '0')}`].Reactiva
+
         // const potencia = obj[`_${i.toString().padStart(2, '0')}`].Potencia
+        const activa = parseFloat(activaC.replace(',', '.'))
+        const reactiva = parseFloat(reactivaC.replace(',', '.'))
 
         if (periodo === 'P1') {
           acc[`Activa-1`] += activa
@@ -60,7 +61,7 @@ const CrearTablaResumen = (props) => {
           acc['Horas-6'] += 1
         }
       }
-
+      // console.log('ACc', acc)
       return acc
     },
     {
@@ -90,6 +91,7 @@ const CrearTablaResumen = (props) => {
       'Horas-6': 0,
     }
   )
+  //console.log('Resumen:', resumen)
 
   return (
     <>
