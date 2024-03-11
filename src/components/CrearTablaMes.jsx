@@ -1,3 +1,5 @@
+import { useState, useEffect, useRef } from 'react'
+
 import PropTypes from 'prop-types'
 import { colores, precios } from '../utils/constantes'
 
@@ -20,78 +22,6 @@ function crearCaption(campo) {
 
 function formatearNumero(numero) {
   return new Intl.NumberFormat('es-CL').format(numero)
-}
-
-const handleClick = (ev, mes, campo) => {
-  //   ev.preventDefault()
-  //   const openEls = document.querySelectorAll('[data-open]')
-  //   const isVisible = 'is-visible'
-  //   for (const el of openEls) {
-  //     el.addEventListener('click', function () {
-  //       const modalId = this.dataset.open
-  //       document.getElementById(modalId).classList.add(isVisible)
-  //     })
-  //   }
-  //   // Cerrar haciendo click en el X del modal
-  //   const closeEls = document.querySelectorAll('[data-close]')
-  //   for (const el of closeEls) {
-  //     el.addEventListener('click', function () {
-  //       this.parentElement.parentElement.parentElement.classList.remove(isVisible)
-  //     })
-  //   }
-  //   // Hciendo click en cualquier parte fuera del modal
-  //   document.addEventListener('click', (e) => {
-  //     if (e.target == document.querySelector('.modal.is-visible')) {
-  //       document.querySelector('.modal.is-visible').classList.remove(isVisible)
-  //     }
-  //   })
-  //   // Por ultimo presionando la tecla 'Esc'
-  //   document.addEventListener('keyup', (e) => {
-  //     if (e.key == 'Escape' && document.querySelector('.modal.is-visible')) {
-  //       document.querySelector('.modal.is-visible').classList.remove(isVisible)
-  //     }
-  //   })
-  // Ventana modal
-  //console.log('EV', ev, 'mes ', mes, 'Campo:', campo)
-  ev.preventDefault()
-  let modal = document.getElementById(`modal-${campo}`)
-  let modalContainer = document.getElementById(`modalContainer-${campo}`)
-  let closeModal = document.getElementById('closeModal')
-  modal.classList.toggle('hidden')
-  modalContainer.classList.remove('hidden')
-  modalContainer.classList.remove('opacity-0')
-
-  modalContainer.classList.remove('w-1')
-  modalContainer.classList.add('w-1/2')
-
-  modalContainer.classList.toggle('visible')
-  closeModal.addEventListener('click', () => {
-    modal.classList.add('hidden')
-  })
-
-  modal.addEventListener('click', () => {
-    modal.classList.add('hidden')
-  })
-  //   // console.log('MOdal', modal)
-  //   // // Botón que abre el modal
-  //   // let boton = document.getElementById(mes)
-  //   // console.log('Boton', boton)
-  //   // // Hace referencia al elemento <span> que tiene la X que cierra la ventana
-  //   // let span = document.getElementsByClassName('cerrar')[0]
-  //   // // Cuando el usuario hace click en el botón, se abre la ventana
-  //   // boton.addEventListener('click', function () {
-  //   //   modal.style.display = `block`
-  //   // })
-  //   // // Si el usuario hace click en la x, la ventana se cierra
-  //   // span.addEventListener('click', function () {
-  //   //   modal.style.display = 'none'
-  //   // })
-  //   // // Si el usuario hace click fuera de la ventana, se cierra.
-  //   // window.addEventListener('click', function (event) {
-  //   //   if (event.target == modal) {
-  //   //     modal.style.display = 'none'
-  //   //   }
-  //   // })
 }
 
 function formatearMes(mes) {
@@ -140,7 +70,7 @@ function getCellValue(fila, fieldName, indice) {
       if (cosPhi < 0.8) {
         precio = precios.menor0_8
       } else if (cosPhi >= 0.8 && cosPhi < 0.95) {
-        precio = precios.menor0_8
+        precio = precios.mayor0_8
       }
       return redondearDecimales(reactiva * precio, 2)
     case 'Potencia':
@@ -153,7 +83,74 @@ function getCellValue(fila, fieldName, indice) {
 }
 const CrearTablaResumenMes = (props) => {
   const { data, data2, campo } = props
+  const [mes, setMes] = useState(null)
+  const [datoMes, setDatoMes] = useState(null)
   if (!data || !data2 || !campo) return
+
+  const handleClick = (ev, mes, campo) => {
+    if (!mes || !campo) return
+    //   ev.preventDefault()
+    //   const openEls = document.querySelectorAll('[data-open]')
+    //   const isVisible = 'is-visible'
+    //   for (const el of openEls) {
+    //     el.addEventListener('click', function () {
+    //       const modalId = this.dataset.open
+    //       document.getElementById(modalId).classList.add(isVisible)
+    //     })
+    //   }
+    //   // Cerrar haciendo click en el X del modal
+    //   const closeEls = document.querySelectorAll('[data-close]')
+    //   for (const el of closeEls) {
+    //     el.addEventListener('click', function () {
+    //       this.parentElement.parentElement.parentElement.classList.remove(isVisible)
+    //     })
+    //   }
+    //   // Hciendo click en cualquier parte fuera del modal
+    //   document.addEventListener('click', (e) => {
+    //     if (e.target == document.querySelector('.modal.is-visible')) {
+    //       document.querySelector('.modal.is-visible').classList.remove(isVisible)
+    //     }
+    //   })
+    //   // Por ultimo presionando la tecla 'Esc'
+    //   document.addEventListener('keyup', (e) => {
+    //     if (e.key == 'Escape' && document.querySelector('.modal.is-visible')) {
+    //       document.querySelector('.modal.is-visible').classList.remove(isVisible)
+    //     }
+    //   })
+    // Ventana modal
+    //console.log('EV', ev, 'mes ', mes, 'Campo:', campo, 'Data', data)
+    setMes(mes)
+    ev.preventDefault()
+    let modal = document.getElementById(`${campo}-modal`)
+    let modalContainer = document.getElementById(`${campo}-modalContainer`)
+    let closeModal = document.getElementById('closeModal')
+    modal.classList.toggle('hidden')
+    modalContainer.classList.remove('hidden')
+    modalContainer.classList.remove('opacity-0')
+
+    modalContainer.classList.remove('w-1')
+    modalContainer.classList.add('w-1/2')
+
+    modalContainer.classList.toggle('visible')
+    closeModal.addEventListener('click', () => {
+      modal.classList.add('hidden')
+    })
+
+    modal.addEventListener('click', () => {
+      modal.classList.add('hidden')
+    })
+  }
+
+  useEffect(() => {
+    function elegirMes(mes) {
+      return data.find((datomes) => datomes.mes === mes)
+    }
+    //console.log('Data: ', data, 'Mes ', mes, 'Datos devueltos', elegirMes(mes))
+    let dato = elegirMes(mes)
+    //console.log('MEs', dato)
+    setDatoMes(dato)
+  }, [data, mes])
+
   //console.log('Data:', data)
   //console.log('Data 2 :', data2)
   let caption = crearCaption(campo)
@@ -218,10 +215,10 @@ const CrearTablaResumenMes = (props) => {
               ></th>
             </tr>
           </thead>
-          <tbody id="tabla">
+          <tbody id={`tabla-${campo}`}>
             {data.map((fila) => (
               <tr
-                key={fila.mes}
+                key={`${campo}-${fila.mes}`}
                 className="px-1 py-1 odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
               >
                 <th
@@ -268,7 +265,7 @@ const CrearTablaResumenMes = (props) => {
                 </td>
                 <td className="text-center text-white odd:bg-opacity-50 print:hidden">
                   <button
-                    id={fila.mes}
+                    id={`${fila.mes}-${campo}`}
                     className="open-modal rounded bg-gray-400 p-0.5 hover:bg-gray-700 transition ease-in duration-300"
                     onClick={(e) => handleClick(e, fila.mes, campo)}
                   >
@@ -282,11 +279,11 @@ const CrearTablaResumenMes = (props) => {
       </div>
       {/* Ventana modal, por defecto no visiblel -->  */}
       <div
-        id={`modal-${campo}`}
+        id={`${campo}-modal`}
         className="modal-container absolute overflow-y-auto top-0 left-0 hidden flex justify-center items-center h-full w-full z-10 min-h-max bg-[rgba(79,79,79,.7)]"
       >
         <div
-          id={`modalContainer-${campo}`}
+          id={`${campo}-modalContainer`}
           className="modal-content relative p-2.5 rounded-md bg-white text-center z-100 w-1 flex flex-row opacity-0 transition-all animate-jump-in animate-ease-linear animate-duration-3000"
         >
           <header className="modal-header text-lg w-full h-6 absolute">
@@ -312,13 +309,41 @@ const CrearTablaResumenMes = (props) => {
               <span className="sr-only">Close modal</span>
             </button>
           </header>
-          <section className="modal-section mt-6">
-            <h2>Resumen de </h2>
-            <p>Esto será el resumen mensual del cliente</p>
-            <p>Energía Activa por Periodo</p>
-            <p>Penalización Energía Reactiva por Periodo</p>
-            <p>Penalización Exceso de potencia por Periodo</p>
-          </section>
+          {datoMes && (
+            <section className="modal-section mt-6">
+              <h2>Resumen de </h2>
+              <p>Esto será el resumen mensual del cliente</p>
+
+              <p>Penalización Energía Reactiva por Periodo</p>
+              <p>Penalización Exceso de potencia por Periodo</p>
+              <div className="grid grid-cols-12 gap-4">
+                <h4>
+                  {campo} {mes}
+                </h4>
+                <div className="col-span-12 md:col-span-12 xl:col-span-12">
+                  <p className="font-bold">Consumida por Periodo</p>
+                </div>
+                <div className="col-span-12 md:col-span-6 xl:col-span-2">
+                  P1: {formatearNumero(datoMes['Activa-1'])}
+                </div>
+                <div className="col-span-12 md:col-span-6 xl:col-span-2">
+                  P2: {formatearNumero(datoMes['Activa-2'])}
+                </div>
+                <div className="col-span-12 md:col-span-6 xl:col-span-2">
+                  P3: {formatearNumero(datoMes['Activa-3'])}
+                </div>
+                <div className="col-span-12 md:col-span-6 xl:col-span-2">
+                  P4: {formatearNumero(datoMes['Activa-4'])}
+                </div>
+                <div className="col-span-12 md:col-span-6 xl:col-span-2">
+                  P5: {formatearNumero(datoMes['Activa-5'])}
+                </div>
+                <div className="col-span-12 md:col-span-6 xl:col-span-2">
+                  P6: {formatearNumero(datoMes['Activa-6'])}
+                </div>
+              </div>
+            </section>
+          )}
           <footer className="modal-footer"></footer>
         </div>
       </div>

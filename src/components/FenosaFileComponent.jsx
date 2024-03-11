@@ -29,6 +29,13 @@ function buscarP(fechaString, hora) {
   }
 }
 
+function redondear(num) {
+  let trunco = Math.trunc(num)
+  let resto = num - trunco
+  if (resto > 0.1) return trunco + 1
+  return trunco
+}
+
 const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
   const [fileContent, setFileContent] = useState(null)
   const [file1Content, setFile1Content] = useState(null)
@@ -48,6 +55,7 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
     setFileContent(null)
     setSelectedCup(null)
     const file = event.target.files[0]
+    // console.log('File', file) https://programacion.net/articulo/validar_la_extension_de_un_fichero_con_javascript_1799
     const reader = new FileReader()
 
     reader.onloadend = () => {
@@ -821,7 +829,7 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
       let resumenMes = []
       let acc = {}
       //console.log('tablaTotal', tablaTotal)
-      let vigia = []
+
       tablaTotal.map((dia) => {
         actual = convertirFecha(dia.date)
         anio = actual.getFullYear()
@@ -838,8 +846,6 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
 
           // Crea un nuevo objeto con los datos del día
           acc.mes = i
-          vigia.push(i)
-          vigia.push(redondear(dia['Activa-3']))
           acc['Activa-1'] = dia['Activa-1']
           acc['Activa-2'] = dia['Activa-2']
           acc['Activa-3'] = dia['Activa-3']
@@ -861,7 +867,6 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
 
           resumenMes.push(acc)
         } else {
-          vigia.push(redondear(dia['Activa-3']))
           encontrado['Activa-1'] += +dia['Activa-1']
           encontrado['Activa-2'] += +dia['Activa-2']
           encontrado['Activa-3'] += +dia['Activa-3']
@@ -902,13 +907,28 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
 
         //  console.log('resumenmes', resumenMes)
       })
-
-      //console.log('Vigia', vigia)
+      //console.log('Resumen Mes', resumenMes)
       return resumenMes
     }
     let s = resumenMesTablaTotal()
     //console.log('Resumen meS', s)
     setResumenMesTablaTotal(s)
+    s.forEach((mes) => {
+      //console.log('Mes44', mes)
+      mes['Activa-1'] = redondear(mes['Activa-1'])
+      mes['Activa-2'] = redondear(mes['Activa-2'])
+      mes['Activa-3'] = redondear(mes['Activa-3'])
+      mes['Activa-4'] = redondear(mes['Activa-4'])
+      mes['Activa-5'] = redondear(mes['Activa-5'])
+      mes['Activa-6'] = redondear(mes['Activa-6'])
+      mes['Reactiva-1'] = redondear(mes['Reactiva-1'])
+      mes['Reactiva-2'] = redondear(mes['Reactiva-2'])
+      mes['Reactiva-3'] = redondear(mes['Reactiva-3'])
+      mes['Reactiva-4'] = redondear(mes['Reactiva-4'])
+      mes['Reactiva-5'] = redondear(mes['Reactiva-5'])
+      mes['Reactiva-6'] = redondear(mes['Reactiva-6'])
+      //console.log('M3s 33', mes)
+    })
   }, [tablaTotal, tratatedInfo])
 
   useEffect(() => {
@@ -916,8 +936,8 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
       if (!resumenMesTablaTotal) return false
       return true
     }
-    let s = isTermined()
-    setIsTermined(s)
+    let d = isTermined()
+    setIsTermined(d)
   }, [resumenMesTablaTotal, cliente])
 
   useEffect(() => {

@@ -18,7 +18,6 @@ const FenosaTratarInfo = (props) => {
   //console.log('DATA', data)
 
   let misDatos = []
-  let miDia = {}
 
   //console.log('Mis datos:', misDatos)
   // Comprobar que existen todas las fechas
