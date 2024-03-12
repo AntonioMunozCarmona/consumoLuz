@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { horas, colores } from '../utils/constantes'
-import CrearTablaResumenMes from './CrearTablaMes'
-import { empresas } from '../utils/listCups'
 import { endesaCalendario, endesaFiestas } from '../utils/endesaCalendario'
 
 function convertirFecha(fechaString) {
@@ -42,13 +40,8 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
   const [fileContent, setFileContent] = useState(null)
   const [file1Content, setFile1Content] = useState(null)
   const [selectedCup, setSelectedCup] = useState(null)
-  const [cliente, setCliente] = useState(null)
   const [datosFiltrados, setDatosFiltrados] = useState(null)
   const [tratatedInfo, setTratatedInfo] = useState(null)
-  const [tablaTotal, setTablaTotal] = useState(null)
-  const [resumenMesTablaTotal, setResumenMesTablaTotal] = useState(null)
-  const [isTermined, setIsTermined] = useState(false)
-  const [excesoPot, setExcesoPot] = useState(null)
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
 
@@ -103,7 +96,6 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
 
     setSelectedCup(e.target.value)
     //console.log('value', e.target.value)
-    //console.log('Cleinte', cliente)
     //console.log('CUP Seleccionada', selectedCup)
   }
 
@@ -113,12 +105,6 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
     //console.log('Filrcontent', fileContent)
     fileContent.forEach((arr) => cupsSet.add(arr[0]))
     return Array.from(cupsSet)
-  }
-
-  const handleCupSelect = (event) => {
-    setSelectedCup(event.target.value)
-    setStartDate(null) // Restablecer la fecha de inicio
-    setEndDate(null) // Restablecer la fecha final
   }
 
   const handleStartDateSelect = (event) => {
@@ -705,7 +691,14 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
 
       onDatosRecibidos(filteredData)
     }
-  }, [startDate, endDate, fileContent, selectedCup])
+  }, [
+    startDate,
+    endDate,
+    fileContent,
+    selectedCup,
+    onDatosRecibidos,
+    tratatedInfo,
+  ])
 
   const [minDate, maxDate] = getDateRange()
 
@@ -788,6 +781,9 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
   )
 }
 
-FenosaCalendarInputComponent.propTypes = {}
+FenosaCalendarInputComponent.propTypes = {
+  datos: PropTypes.Object,
+  onDatosRecibidos: PropTypes.func,
+}
 
 export default FenosaCalendarInputComponent

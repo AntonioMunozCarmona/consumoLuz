@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 
 import PropTypes from 'prop-types'
 import { colores, precios } from '../utils/constantes'
@@ -81,6 +81,7 @@ function getCellValue(fila, fieldName, indice) {
       return null
   }
 }
+
 const CrearTablaResumenMes = (props) => {
   const { data, data2, campo } = props
   const [mes, setMes] = useState(null)
@@ -151,8 +152,8 @@ const CrearTablaResumenMes = (props) => {
     setDatoMes(dato)
   }, [data, mes])
 
-  //console.log('Data:', data)
-  //console.log('Data 2 :', data2)
+  console.log('Data:', data)
+  console.log('Data 2 :', data2)
   let caption = crearCaption(campo)
   return (
     <>
@@ -280,7 +281,7 @@ const CrearTablaResumenMes = (props) => {
       {/* Ventana modal, por defecto no visiblel -->  */}
       <div
         id={`${campo}-modal`}
-        className="modal-container absolute overflow-y-auto top-0 left-0 hidden flex justify-center items-center h-full w-full z-10 min-h-max bg-[rgba(79,79,79,.7)]"
+        className="modal-container absolute overflow-y-auto m-auto hidden flex justify-center items-center h-full w-full z-10 min-h-max bg-[rgba(79,79,79,.7)]"
       >
         <div
           id={`${campo}-modalContainer`}
@@ -290,7 +291,7 @@ const CrearTablaResumenMes = (props) => {
             <button
               type="button"
               id="closeModal"
-              className="text-gray-400 bg-transparent hover:bg-gray-200 absolute right-0 top-0 mr-4 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
+              className="text-gray-700 bg-transparent hover:bg-gray-200 absolute right-2 top-6 mr-4 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
             >
               <svg
                 className="w-3 h-3 m-auto"
@@ -310,36 +311,93 @@ const CrearTablaResumenMes = (props) => {
             </button>
           </header>
           {datoMes && (
-            <section className="modal-section mt-6">
-              <h2>Resumen de </h2>
-              <p>Esto será el resumen mensual del cliente</p>
-
-              <p>Penalización Energía Reactiva por Periodo</p>
-              <p>Penalización Exceso de potencia por Periodo</p>
-              <div className="grid grid-cols-12 gap-4">
-                <h4>
-                  {campo} {mes}
-                </h4>
-                <div className="col-span-12 md:col-span-12 xl:col-span-12">
+            <section className="modal-section bg-gradient-to-r from-emerald-400 to-cyan-400 mt-6 w-full border-spacing-3 border-slate-500">
+              <h2 className="bold text-xl">Resumen</h2>
+              <p>(FALTA Penalización Exceso de potencia por Periodo)</p>
+              <h4 className="m-auto text-center">
+                {campo} {mes}
+              </h4>
+              <div className="grid grid-cols-3 gap-4">
+                <div className="">
                   <p className="font-bold">Consumida por Periodo</p>
+                  <ul>
+                    <li className="">
+                      P1: {formatearNumero(datoMes['Activa-1'])}
+                    </li>
+                    <li className="">
+                      P2: {formatearNumero(datoMes['Activa-2'])}
+                    </li>
+                    <li className="">
+                      P3: {formatearNumero(datoMes['Activa-3'])}
+                    </li>
+                    <li className="">
+                      P4: {formatearNumero(datoMes['Activa-4'])}
+                    </li>
+                    <li className="">
+                      P5: {formatearNumero(datoMes['Activa-5'])}
+                    </li>
+                    <li className="">
+                      P6: {formatearNumero(datoMes['Activa-6'])}
+                    </li>
+                  </ul>
                 </div>
-                <div className="col-span-12 md:col-span-6 xl:col-span-2">
-                  P1: {formatearNumero(datoMes['Activa-1'])}
+                <div className="">
+                  <p className="font-bold">Reactiva por Periodo</p>
+                  <ul>
+                    <li className="">
+                      P1: {formatearNumero(datoMes['Reactiva-1'])}
+                    </li>
+                    <li className="">
+                      P2: {formatearNumero(datoMes['Reactiva-2'])}
+                    </li>
+                    <li className="">
+                      P3: {formatearNumero(datoMes['Reactiva-3'])}
+                    </li>
+                    <li className="">
+                      P4: {formatearNumero(datoMes['Reactiva-4'])}
+                    </li>
+                    <li className="">
+                      P5: {formatearNumero(datoMes['Reactiva-5'])}
+                    </li>
+                    <li className="">
+                      P6: {formatearNumero(datoMes['Reactiva-6'])}
+                    </li>
+                  </ul>
                 </div>
-                <div className="col-span-12 md:col-span-6 xl:col-span-2">
-                  P2: {formatearNumero(datoMes['Activa-2'])}
-                </div>
-                <div className="col-span-12 md:col-span-6 xl:col-span-2">
-                  P3: {formatearNumero(datoMes['Activa-3'])}
-                </div>
-                <div className="col-span-12 md:col-span-6 xl:col-span-2">
-                  P4: {formatearNumero(datoMes['Activa-4'])}
-                </div>
-                <div className="col-span-12 md:col-span-6 xl:col-span-2">
-                  P5: {formatearNumero(datoMes['Activa-5'])}
-                </div>
-                <div className="col-span-12 md:col-span-6 xl:col-span-2">
-                  P6: {formatearNumero(datoMes['Activa-6'])}
+                <div>
+                  <p className="font-bold">Penalizacion Energía Reactiva</p>
+                  <ul>
+                    <li className="">
+                      P1:{' '}
+                      {formatearNumero(
+                        getCellValue(datoMes, 'ReactivaFact', 1)
+                      )}
+                    </li>
+                    <li className="">
+                      P2:{' '}
+                      {formatearNumero(
+                        getCellValue(datoMes, 'ReactivaFact', 2)
+                      )}
+                    </li>
+                    <li className="">
+                      P3:{' '}
+                      {formatearNumero(
+                        getCellValue(datoMes, 'ReactivaFact', 3)
+                      )}
+                    </li>
+                    <li className="">
+                      P4:{' '}
+                      {formatearNumero(
+                        getCellValue(datoMes, 'ReactivaFact', 4)
+                      )}
+                    </li>
+                    <li className="">
+                      P5:{' '}
+                      {formatearNumero(
+                        getCellValue(datoMes, 'ReactivaFact', 5)
+                      )}
+                    </li>
+                  </ul>
                 </div>
               </div>
             </section>
