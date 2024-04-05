@@ -212,7 +212,7 @@ const FenosaTratarInfo = (props) => {
   misDatos.sort((a, b) => {
     return convertirFecha(a.date) - convertirFecha(b.date)
   })
-  //console.log('Mis datos ', misDatos)
+  console.log('Mis datos ', misDatos)
 
   return (
     <div>

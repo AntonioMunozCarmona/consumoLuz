@@ -122,9 +122,9 @@ const TratarInfo = (props) => {
       horas.forEach((hora) => {
         if (!miDia.hasOwnProperty(hora)) {
           miDia[hora] = {
-            Activa: 0,
-            Reactiva: 0,
-            Potencia: 0,
+            Activa: '0',
+            Reactiva: '0',
+            Potencia: '0',
             Periodo: 'ND',
             Color: colores.ND,
           }
@@ -352,7 +352,7 @@ const TratarInfo = (props) => {
   misDatos.sort((a, b) => {
     return convertirFecha(a.date) - convertirFecha(b.date)
   })
-  //console.log(misDatos)
+  //console.log('Mis Datos REsumen dia', misDatos)
 
   return (
     <div>

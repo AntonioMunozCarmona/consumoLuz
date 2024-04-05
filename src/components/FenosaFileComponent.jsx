@@ -460,7 +460,7 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
         }
 
         //console.log('Mis datos1', misDatos)
-        setTratatedInfo(misDatos)
+        // setTratatedInfo(misDatos)
         return acc
       }, [])
       //console.log('Mis datos2:', misDatos)
@@ -746,42 +746,60 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
             //console.log('Es P1', activa)
             acc[`Activa-1`] += +activa.replace(',', '.')
             acc[`Reactiva-1`] += +reactiva.replace(',', '.')
-            acc[`Potencia-1`] = Math.max(acc[`Potencia-1`], parseFloat(activa))
+            acc[`Potencia-1`] = Math.max(
+              acc[`Potencia-1`],
+              activa.replace(',', '.')
+            )
           }
 
           if (periodo === 'P2') {
             acc[`Activa-2`] += +activa.replace(',', '.')
             acc[`Reactiva-2`] += +reactiva.replace(',', '.')
-            acc[`Potencia-2`] = Math.max(acc[`Potencia-2`], parseFloat(activa))
+            acc[`Potencia-2`] = Math.max(
+              acc[`Potencia-2`],
+              activa.replace(',', '.')
+            )
           }
 
           if (periodo === 'P3') {
             //vigia.push(+activa.replace(',', '.'))
             acc[`Activa-3`] += +activa.replace(',', '.')
             acc[`Reactiva-3`] += +reactiva.replace(',', '.')
-            acc[`Potencia-3`] = Math.max(acc[`Potencia-3`], parseFloat(activa))
+            acc[`Potencia-3`] = Math.max(
+              acc[`Potencia-3`],
+              activa.replace(',', '.')
+            )
           }
 
           if (periodo === 'P4') {
             acc[`Activa-4`] += +activa.replace(',', '.')
             acc[`Reactiva-4`] += +reactiva.replace(',', '.')
-            acc[`Potencia-4`] = Math.max(acc[`Potencia-4`], parseFloat(activa))
+            acc[`Potencia-4`] = Math.max(
+              acc[`Potencia-4`],
+              activa.replace(',', '.')
+            )
           }
 
           if (periodo === 'P5') {
             acc[`Activa-5`] += +activa.replace(',', '.')
             acc[`Reactiva-5`] += +reactiva.replace(',', '.')
-            acc[`Potencia-5`] = Math.max(acc[`Potencia-5`], parseFloat(activa))
+            acc[`Potencia-5`] = Math.max(
+              acc[`Potencia-5`],
+              activa.replace(',', '.')
+            )
           }
 
           if (periodo === 'P6') {
             acc[`Activa-6`] += +activa.replace(',', '.')
             acc[`Reactiva-6`] += +reactiva.replace(',', '.')
-            acc[`Potencia-6`] = Math.max(acc[`Potencia-6`], parseFloat(activa))
+            acc[`Potencia-6`] = Math.max(
+              acc[`Potencia-6`],
+              activa.replace(',', '.')
+            )
           }
         }
         //console.log('Datos ', acc.date, '  ', vigia)
-        // console.log('acc', acc)
+        //console.log('acc', acc)
 
         resumen.push(acc)
         return acc

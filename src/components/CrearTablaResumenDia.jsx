@@ -72,9 +72,19 @@ const CrearTablaResumenDia = (props) => {
       const activaC = obj[`_${i.toString().padStart(2, '0')}`].Activa
       const reactivaC = obj[`_${i.toString().padStart(2, '0')}`].Reactiva
       //const potencia = obj[`_${i.toString().padStart(2, '0')}`].Potencia
-
-      const activa = parseFloat(activaC.replace(',', '.'))
-      const reactiva = parseFloat(reactivaC.replace(',', '.'))
+      // console.log('activaC', activaC, ' Tipo ', typeof activaC)
+      let activa = ''
+      let reactiva = ''
+      if (activaC.includes(',')) {
+        activa = parseFloat(activaC.replace(',', '.'))
+      } else {
+        activa = parseFloat(activaC)
+      }
+      if (reactivaC.includes(',')) {
+        reactiva = parseFloat(reactivaC.replace(',', '.'))
+      } else {
+        reactiva = parseFloat(reactivaC)
+      }
 
       if (periodo === 'P1') {
         acc[`Activa-1`] += activa
