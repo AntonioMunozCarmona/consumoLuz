@@ -1011,6 +1011,7 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
           aria-describedby="file_input_help"
           id="fileInput"
           type="file"
+          accept=".csv, .xlsx"
           ref={fileInputRef}
           onChange={handleFileUpload}
         ></input>
@@ -1027,6 +1028,7 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
           aria-describedby="file_input_help"
           id="fileInput"
           type="file"
+          accept=".csv, .xlsx"
           ref={file1InputRef}
           onChange={handleFile1Upload}
         ></input>

@@ -152,8 +152,8 @@ const CrearTablaResumenMes = (props) => {
     setDatoMes(dato)
   }, [data, mes, campo, data2])
 
-  console.log('Data:', data)
-  console.log('Data 2 :', data2)
+  //console.log('Data:', data)
+  //console.log('Data 2 :', data2)
   let caption = crearCaption(campo)
   return (
     <>
