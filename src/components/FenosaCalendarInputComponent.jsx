@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
+import readXlsxFile from 'read-excel-file'
 import PropTypes from 'prop-types'
-import { horas, colores } from '../utils/constantes'
+import { horas, colores, allowedExtensions } from '../utils/constantes'
 import { endesaCalendario, endesaFiestas } from '../utils/endesaCalendario'
 
 function convertirFecha(fechaString) {
@@ -52,41 +53,85 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
     setFileContent(null)
     setSelectedCup(null)
     const file = event.target.files[0]
-    const reader = new FileReader()
+    if (!allowedExtensions.exec(file.name)) {
+      alert(
+        'Por favor, utilice solamente archivos con extensión .xlsx/ o .csv/'
+      )
+      return false
+    } else if (file.name.split('.')[1] === 'csv') {
+      // FICHERO CSV
+      // console.log('Estoy en else')
 
-    reader.onloadend = () => {
-      //       Este fichero tiene CUPS	Fecha	Hora	Consumo_KWh	Metodo_obtencion
+      const reader = new FileReader()
 
-      let lines = reader.result.split('\n').slice(1) // Omitir la primera línea
-      lines = lines.filter((line) => line.trim() !== '') // Eliminar líneas vacías
-      const options = lines.map((line) => line.replace(/\r/, '').split(';'))
+      reader.onloadend = () => {
+        //       Este fichero tiene CUPS	Fecha	Hora	Consumo_KWh	Metodo_obtencion
 
-      setFileContent(options)
-      //console.log('Options', options)
-      //console.log('file 0', fileContent)
+        let lines = reader.result.split('\n').slice(1) // Omitir la primera línea
+        lines = lines.filter((line) => line.trim() !== '') // Eliminar líneas vacías
+        const options = lines.map((line) => line.replace(/\r/, '').split(';'))
+
+        setFileContent(options)
+        //console.log('Options', options)
+        //console.log('file 0', fileContent)
+      }
+
+      reader.readAsText(file)
+    } else if (file.name.split('.')[1] === 'xlsx') {
+      //console.log('Estoy en el infierno')
+      const reader = new FileReader()
+      reader.onload = async function (e) {
+        //console.log(e.target.result)
+        // https://www.npmjs.com/package/read-excel-file
+        let lines = await readXlsxFile(e.target.result)
+        lines = lines.slice(1) // Omitir la primera línea
+        //console.log('Row Excle', lines)
+
+        setFileContent(lines)
+      }
+      reader.readAsArrayBuffer(file)
     }
-
-    reader.readAsText(file)
   }
 
   const handleFile1Upload = (event) => {
     setFile1Content(null)
     setSelectedCup(null)
     const file = event.target.files[0]
-    const reader = new FileReader()
+    if (!allowedExtensions.exec(file.name)) {
+      alert(
+        'Por favor, utilice solamente archivos con extensión .xlsx/ o .csv/'
+      )
+      return false
+    } else if (file.name.split('.')[1] === 'csv') {
+      //# MARK: CSV
+      const reader = new FileReader()
 
-    reader.onloadend = () => {
-      //       Este fichero tiene CUPS	Fecha	Hora	Consumo_KWh	Metodo_obtencion
+      reader.onloadend = () => {
+        //       Este fichero tiene CUPS	Fecha	Hora	Consumo_KWh	Metodo_obtencion
 
-      let lines = reader.result.split('\n').slice(1) // Omitir la primera línea
-      lines = lines.filter((line) => line.trim() !== '') // Eliminar líneas vacías
-      const options = lines.map((line) => line.replace(/\r/, '').split(';'))
+        let lines = reader.result.split('\n').slice(1) // Omitir la primera línea
+        lines = lines.filter((line) => line.trim() !== '') // Eliminar líneas vacías
+        const options = lines.map((line) => line.replace(/\r/, '').split(';'))
 
-      setFile1Content(options)
-      //console.log('file 1', file1Content)
+        setFile1Content(options)
+        //console.log('file 1', file1Content)
+      }
+
+      reader.readAsText(file)
+    } else if (file.name.split('.')[1] === 'xlsx') {
+      //console.log('Estoy en el infierno')
+      const reader = new FileReader()
+      reader.onload = async function (e) {
+        console.log(e.target.result)
+        // https://www.npmjs.com/package/read-excel-file
+        let lines = await readXlsxFile(e.target.result)
+        lines = lines.slice(1) // Omitir la primera línea
+        //console.log('Row Excle', lines)
+
+        setFile1Content(lines)
+      }
+      reader.readAsArrayBuffer(file)
     }
-
-    reader.readAsText(file)
   }
 
   const handleClick = (e) => {

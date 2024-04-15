@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
+import readXlsxFile from 'read-excel-file'
 import PropTypes from 'prop-types'
-import { horas, colores } from '../utils/constantes'
+import { horas, colores, allowedExtensions } from '../utils/constantes'
 import CrearTablaResumenMes from './CrearTablaMes'
 import { empresas } from '../utils/listCups'
 import { endesaCalendario, endesaFiestas } from '../utils/endesaCalendario'
@@ -50,93 +51,139 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
 
   const fileInputRef = useRef()
   const file1InputRef = useRef()
-
+  // help
   const handleFileUpload = (event) => {
     setFileContent(null)
     setSelectedCup(null)
     const file = event.target.files[0]
-    // console.log('File', file) https://programacion.net/articulo/validar_la_extension_de_un_fichero_con_javascript_1799
-    const reader = new FileReader()
+    // console.log('File', file, file.name)
+    //https://programacion.net/articulo/validar_la_extension_de_un_fichero_con_javascript_1799
 
-    reader.onloadend = () => {
-      //       Este fichero tiene CUPS	Fecha	Hora	Consumo_KWh	Metodo_obtencion
+    if (!allowedExtensions.exec(file.name)) {
+      alert(
+        'Por favor, utilice solamente archivos con extensión .xlsx/ o .csv/'
+      )
+      return false
+    } else if (file.name.split('.')[1] === 'csv') {
+      // FICHERO CSV
+      // console.log('Estoy en else')
 
-      let lines = reader.result.split('\n').slice(1) // Omitir la primera línea
-      lines = lines.filter((line) => line.trim() !== '') // Eliminar líneas vacías
-      const options = lines.map((line) => line.replace(/\r/, '').split(';'))
-      // Dividir la fecha hora en dos campos
-      //   options.map((array) => {
-      //     let [fecha, tiempo] = array[1].split(' ')
-      //     const [hora] = tiempo.split(':')
-      //     if (hora === '00') {
-      //       // Hace que la hora 00 sea del dia anterior
-      //       let date = fecha.split('/')
-      //       let dia = new Date(date[2], date[1] - 1, date[0], 0, 0, 0, 0)
-      //       dia = new Date(dia.getTime() - 24 * 60 * 60 * 1000)
-      //       let d = dia.getDate()
-      //       let m = dia.getMonth() + 1
+      const reader = new FileReader()
 
-      //       if (d < 10) {
-      //         d = '0' + d
-      //       }
-      //       if (m < 10) {
-      //         m = '0' + m
-      //       }
-      //       fecha = d + '/' + m + '/' + dia.getFullYear()
-      //       //console.log('FEcha', fecha)
-      //     }
-      //     array.splice(1, 1, fecha, hora)
-      //   })
+      reader.onloadend = () => {
+        //       Este fichero tiene CUPS	Fecha	Hora	Consumo_KWh	Metodo_obtencion
 
-      setFileContent(options)
-      //console.log('Options', options)
-      //console.log('file 0', fileContent)
+        let lines = reader.result.split('\n').slice(1) // Omitir la primera línea
+        lines = lines.filter((line) => line.trim() !== '') // Eliminar líneas vacías
+        const options = lines.map((line) => line.replace(/\r/, '').split(';'))
+        // Dividir la fecha hora en dos campos
+        //   options.map((array) => {
+        //     let [fecha, tiempo] = array[1].split(' ')
+        //     const [hora] = tiempo.split(':')
+        //     if (hora === '00') {
+        //       // Hace que la hora 00 sea del dia anterior
+        //       let date = fecha.split('/')
+        //       let dia = new Date(date[2], date[1] - 1, date[0], 0, 0, 0, 0)
+        //       dia = new Date(dia.getTime() - 24 * 60 * 60 * 1000)
+        //       let d = dia.getDate()
+        //       let m = dia.getMonth() + 1
+
+        //       if (d < 10) {
+        //         d = '0' + d
+        //       }
+        //       if (m < 10) {
+        //         m = '0' + m
+        //       }
+        //       fecha = d + '/' + m + '/' + dia.getFullYear()
+        //       //console.log('FEcha', fecha)
+        //     }
+        //     array.splice(1, 1, fecha, hora)
+        //   })
+
+        setFileContent(options)
+        //console.log('Options', options)
+        //console.log('file 0', fileContent)
+      }
+
+      reader.readAsText(file)
+    } else if (file.name.split('.')[1] === 'xlsx') {
+      //console.log('Estoy en el infierno')
+      const reader = new FileReader()
+      reader.onload = async function (e) {
+        //console.log(e.target.result)
+        // https://www.npmjs.com/package/read-excel-file
+        let lines = await readXlsxFile(e.target.result)
+        lines = lines.slice(1) // Omitir la primera línea
+        //console.log('Row Excle', lines)
+
+        setFileContent(lines)
+      }
+      reader.readAsArrayBuffer(file)
     }
-
-    reader.readAsText(file)
   }
 
   const handleFile1Upload = (event) => {
     setFile1Content(null)
     setSelectedCup(null)
     const file = event.target.files[0]
-    const reader = new FileReader()
+    if (!allowedExtensions.exec(file.name)) {
+      alert(
+        'Por favor, utilice solamente archivos con extensión .xlsx/ o .csv/'
+      )
+      return false
+    } else if (file.name.split('.')[1] === 'csv') {
+      // FICHERO CSV
+      const reader = new FileReader()
 
-    reader.onloadend = () => {
-      //       Este fichero tiene CUPS	Fecha	Hora	Consumo_KWh	Metodo_obtencion
+      reader.onloadend = () => {
+        //       Este fichero tiene CUPS	Fecha	Hora	Consumo_KWh	Metodo_obtencion
 
-      let lines = reader.result.split('\n').slice(1) // Omitir la primera línea
-      lines = lines.filter((line) => line.trim() !== '') // Eliminar líneas vacías
-      const options = lines.map((line) => line.replace(/\r/, '').split(';'))
-      // Dividir la fecha hora en dos campos
-      //   options.map((array) => {
-      //     let [fecha, tiempo] = array[1].split(' ')
-      //     const [hora] = tiempo.split(':')
-      //     if (hora === '00') {
-      //       // Hace que la hora 00 sea del dia anterior
-      //       let date = fecha.split('/')
-      //       let dia = new Date(date[2], date[1] - 1, date[0], 0, 0, 0, 0)
-      //       dia = new Date(dia.getTime() - 24 * 60 * 60 * 1000)
-      //       let d = dia.getDate()
-      //       let m = dia.getMonth() + 1
+        let lines = reader.result.split('\n').slice(1) // Omitir la primera línea
+        lines = lines.filter((line) => line.trim() !== '') // Eliminar líneas vacías
+        const options = lines.map((line) => line.replace(/\r/, '').split(';'))
+        // Dividir la fecha hora en dos campos
+        //   options.map((array) => {
+        //     let [fecha, tiempo] = array[1].split(' ')
+        //     const [hora] = tiempo.split(':')
+        //     if (hora === '00') {
+        //       // Hace que la hora 00 sea del dia anterior
+        //       let date = fecha.split('/')
+        //       let dia = new Date(date[2], date[1] - 1, date[0], 0, 0, 0, 0)
+        //       dia = new Date(dia.getTime() - 24 * 60 * 60 * 1000)
+        //       let d = dia.getDate()
+        //       let m = dia.getMonth() + 1
 
-      //       if (d < 10) {
-      //         d = '0' + d
-      //       }
-      //       if (m < 10) {
-      //         m = '0' + m
-      //       }
-      //       fecha = d + '/' + m + '/' + dia.getFullYear()
-      //       //console.log('FEcha', fecha)
-      //     }
-      //     array.splice(1, 1, fecha, hora)
-      //   })
+        //       if (d < 10) {
+        //         d = '0' + d
+        //       }
+        //       if (m < 10) {
+        //         m = '0' + m
+        //       }
+        //       fecha = d + '/' + m + '/' + dia.getFullYear()
+        //       //console.log('FEcha', fecha)
+        //     }
+        //     array.splice(1, 1, fecha, hora)
+        //   })
 
-      setFile1Content(options)
-      //console.log('file 1', file1Content)
+        setFile1Content(options)
+        //console.log('file 1', file1Content)
+      }
+
+      reader.readAsText(file)
+    } else if (file.name.split('.')[1] === 'xlsx') {
+      //console.log('Estoy en el infierno')
+      const reader = new FileReader()
+      reader.onload = async function (e) {
+        console.log(e.target.result)
+        // https://www.npmjs.com/package/read-excel-file
+        let lines = await readXlsxFile(e.target.result)
+        lines = lines.slice(1) // Omitir la primera línea
+        //console.log('Row Excle', lines)
+
+        setFile1Content(lines)
+      }
+      reader.readAsArrayBuffer(file)
     }
-
-    reader.readAsText(file)
   }
 
   const handleClick = (e) => {
