@@ -54,3 +54,5 @@ export const precios = {
   menor0_8: 0.062332,
   mayor0_8: 0.041554,
 }
+
+export const allowedExtensions = /(.csv|.xlsx|.xls)$/i
