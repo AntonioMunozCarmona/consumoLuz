@@ -57,6 +57,7 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
       alert(
         'Por favor, utilice solamente archivos con extensión .xlsx/ o .csv/'
       )
+      setFileContent(undefined)
       return false
     } else if (file.name.split('.')[1] === 'csv') {
       // FICHERO CSV
@@ -101,6 +102,7 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
       alert(
         'Por favor, utilice solamente archivos con extensión .xlsx/ o .csv/'
       )
+      setFile1Content(undefined)
       return false
     } else if (file.name.split('.')[1] === 'csv') {
       //# MARK: CSV
@@ -755,16 +757,16 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
           htmlFor="fileInput"
         >
           Archivo E. Activa
+          <input
+            className="block w-11/12 lg:w-3/5 mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            aria-describedby="file_input_help"
+            id="fileInput"
+            type="file"
+            accept=".csv, .xlsx"
+            ref={fileInputRef}
+            onChange={handleFileUpload}
+          ></input>
         </label>
-        <input
-          className="block w-11/12 lg:w-3/5 mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-          aria-describedby="file_input_help"
-          id="fileInput"
-          type="file"
-          accept=".csv, .xlsx"
-          ref={fileInputRef}
-          onChange={handleFileUpload}
-        ></input>
       </div>
       <div className="print:hidden">
         <label
@@ -772,16 +774,16 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
           htmlFor="fileInput"
         >
           Archivo E. Reactiva
+          <input
+            className="block w-11/12 lg:w-3/5 mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            aria-describedby="file_input_help"
+            id="fileInput"
+            type="file"
+            accept=".csv, .xlsx"
+            ref={file1InputRef}
+            onChange={handleFile1Upload}
+          ></input>
         </label>
-        <input
-          className="block w-11/12 lg:w-3/5 mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-          aria-describedby="file_input_help"
-          id="fileInput"
-          type="file"
-          accept=".csv, .xlsx"
-          ref={file1InputRef}
-          onChange={handleFile1Upload}
-        ></input>
       </div>
       <div className="print:hidden">
         {fileContent &&
