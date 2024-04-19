@@ -43,8 +43,8 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
   const [selectedCup, setSelectedCup] = useState(null)
   const [datosFiltrados, setDatosFiltrados] = useState(null)
   const [tratatedInfo, setTratatedInfo] = useState(null)
-  const [startDate, setStartDate] = useState(null)
-  const [endDate, setEndDate] = useState(null)
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
 
   const fileInputRef = useRef()
   const file1InputRef = useRef()
@@ -124,7 +124,7 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
       //console.log('Estoy en el infierno')
       const reader = new FileReader()
       reader.onload = async function (e) {
-        console.log(e.target.result)
+        //console.log(e.target.result)
         // https://www.npmjs.com/package/read-excel-file
         let lines = await readXlsxFile(e.target.result)
         lines = lines.slice(1) // Omitir la primera línea
@@ -183,7 +183,7 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
     const minDate = new Date(Math.min.apply(null, dates))
     const maxDate = new Date(Math.max.apply(null, dates))
     maxDate.setDate(maxDate.getDate() + 1)
-    console.log('MIn', minDate, 'max', maxDate)
+    //console.log('MIn', minDate, 'max', maxDate)
     return [
       minDate.toISOString().split('T')[0],
       maxDate.toISOString().split('T')[0],
@@ -364,7 +364,7 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
       let misDatos = []
       let miDia = {}
       let periodo = ''
-      console.log('Datos filtrados', datosFiltrados)
+      //console.log('Datos filtrados', datosFiltrados)
 
       datosFiltrados.reduce((acc, curr, i) => {
         const [name, fecha, hour, activa, ...rest] = curr
@@ -742,7 +742,7 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
 
     if (startDate && endDate) {
       const filteredData = getFilteredData()
-      console.log('Filtrados por fecha', filteredData)
+      //console.log('Filtrados por fecha', filteredData)
       onDatosRecibidos(filteredData)
     }
   }, [

@@ -228,7 +228,10 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
     }
     const filteredData = filtrarCup()
     //console.log('datosFiltradosCup', filteredData)
-    setDatosFiltrados(filteredData)
+    // Quitamos los duplicados del array
+    let set = new Set(filteredData.map(JSON.stringify))
+    let arrSinDuplicaciones = Array.from(set).map(JSON.parse)
+    setDatosFiltrados(arrSinDuplicaciones)
   }, [fileContent, selectedCup])
 
   useEffect(() => {
