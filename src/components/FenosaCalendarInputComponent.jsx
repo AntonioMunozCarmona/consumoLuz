@@ -48,7 +48,7 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
 
   const fileInputRef = useRef()
   const file1InputRef = useRef()
-
+  //# MARK: handleFileUpload
   const handleFileUpload = (event) => {
     setFileContent(null)
     setSelectedCup(null)
@@ -93,7 +93,7 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
       reader.readAsArrayBuffer(file)
     }
   }
-
+  //# MARK: handleFile1Upload
   const handleFile1Upload = (event) => {
     setFile1Content(null)
     setSelectedCup(null)
@@ -183,7 +183,7 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
     const minDate = new Date(Math.min.apply(null, dates))
     const maxDate = new Date(Math.max.apply(null, dates))
     maxDate.setDate(maxDate.getDate() + 1)
-    // console.log('MIn', minDate, 'max', maxDate)
+    console.log('MIn', minDate, 'max', maxDate)
     return [
       minDate.toISOString().split('T')[0],
       maxDate.toISOString().split('T')[0],
@@ -199,9 +199,14 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
     }
     const filteredData = filtrarCup()
     //console.log('datosFiltradosCup', filteredData)
-    setDatosFiltrados(filteredData)
-  }, [fileContent, selectedCup])
+    // Quitamos los duplicados del array
+    let set = new Set(filteredData.map(JSON.stringify))
+    let arrSinDuplicaciones = Array.from(set).map(JSON.parse)
+    //console.log('Sin Duplicaciones', arrSinDuplicaciones)
 
+    setDatosFiltrados(arrSinDuplicaciones)
+  }, [fileContent, selectedCup])
+  //# MARK: GENERAR ARRAY DIA
   useEffect(() => {
     // Generar un array de objetos de esta forma:
     //   {
@@ -353,12 +358,13 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
     //     }
     // }
     const tratarInfo = () => {
-      if (!datosFiltrados || !selectedCup || !file1Content) return []
+      if (!datosFiltrados || !selectedCup || !file1Content || !fileContent)
+        return []
       let color
       let misDatos = []
       let miDia = {}
       let periodo = ''
-      //console.log('Datos filtrados', datosFiltrados)
+      console.log('Datos filtrados', datosFiltrados)
 
       datosFiltrados.reduce((acc, curr, i) => {
         const [name, fecha, hour, activa, ...rest] = curr
@@ -387,12 +393,16 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
           Color: color,
         }
 
-        if (!miDia.name || name !== miDia.name) {
-          miDia.name = name
-          miDia.date = fecha
-        }
+        // if (name !== miDia?.name) {
+
+        //   miDia.name = name
+        //   miDia.date = fecha
+        // }
 
         if (hour === '1') {
+          miDia = {}
+          miDia.name = name
+          miDia.date = fecha
           miDia._01 = hourData
         }
         if (hour === '2') {
@@ -474,16 +484,16 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
               }
             }
           })
-          misDatos.push(miDia)
 
-          miDia = {}
+          //        console.log('Voy a guardar Mi dia',           miDia.date,' ',  miDia,' Longitud misDatos',         misDatos.length)
+          misDatos.push(miDia)
         }
 
-        // console.log('Mis datos', misDatos)
-        setTratatedInfo(misDatos)
-        return acc
+        //return acc
       }, [])
-      //console.log('Mis datos:', misDatos)
+      //console.log('Mis datos1', misDatos)
+      setTratatedInfo(misDatos)
+      //console.log('Mis datos2:', misDatos)
       //Comprobar que existen todas las fechas
       let fechas = []
       misDatos.map((dato) => fechas.push(dato.date))
@@ -706,9 +716,6 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
     let tratados = tratarInfo()
     setTratatedInfo(tratados)
     //console.log('TratatedInfo', tratados)
-
-    // let tratados = tratarInfo()
-    // setTratatedInfo(tratados)
   }, [datosFiltrados, file1Content, fileContent, selectedCup])
 
   useEffect(() => {
@@ -735,7 +742,7 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
 
     if (startDate && endDate) {
       const filteredData = getFilteredData()
-
+      console.log('Filtrados por fecha', filteredData)
       onDatosRecibidos(filteredData)
     }
   }, [
@@ -777,7 +784,7 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
           <input
             className="block w-11/12 lg:w-3/5 mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
             aria-describedby="file_input_help"
-            id="fileInput"
+            id="fileInput1"
             type="file"
             accept=".csv, .xlsx"
             ref={file1InputRef}
@@ -800,26 +807,30 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
           ))}
         {selectedCup && datosFiltrados && (
           <div className="flex flex-col  sm:flex-row print:hidden">
-            <label className="m-2">Fecha de inicio:</label>
-            <input
-              type="date"
-              className="inputdata m-2"
-              min={minDate}
-              max={maxDate}
-              value={startDate || maxDate}
-              onChange={handleStartDateSelect}
-            />
+            <label className="m-2">
+              Fecha de inicio:
+              <input
+                type="date"
+                className="inputdata m-2"
+                min={minDate}
+                max={maxDate}
+                value={startDate || maxDate}
+                onChange={handleStartDateSelect}
+              />
+            </label>
             {startDate && (
               <>
-                <label className="m-2 ml-5">Fecha final:</label>
-                <input
-                  type="date"
-                  className="inputdata m-2"
-                  min={minDate}
-                  max={maxDate}
-                  value={endDate || startDate}
-                  onChange={handleEndDateSelect}
-                />
+                <label className="m-2 ml-5">
+                  Fecha final:
+                  <input
+                    type="date"
+                    className="inputdata m-2"
+                    min={minDate}
+                    max={maxDate}
+                    value={endDate || startDate}
+                    onChange={handleEndDateSelect}
+                  />
+                </label>
               </>
             )}
             {tratatedInfo && <></>}
@@ -831,7 +842,7 @@ const FenosaCalendarInputComponent = ({ datos, onDatosRecibidos }) => {
 }
 
 FenosaCalendarInputComponent.propTypes = {
-  datos: PropTypes.Object,
+  datos: PropTypes.func,
   onDatosRecibidos: PropTypes.func,
 }
 

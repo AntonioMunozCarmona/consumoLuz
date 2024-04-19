@@ -1074,7 +1074,7 @@ const FenosaFileComponent = ({ datos, onDatosRecibidos }) => {
           <input
             className="block w-11/12 lg:w-3/5 mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
             aria-describedby="file_input_help"
-            id="fileInput"
+            id="fileInput1"
             type="file"
             accept=".csv, .xlsx"
             ref={file1InputRef}
